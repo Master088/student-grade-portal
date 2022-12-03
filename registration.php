@@ -191,10 +191,10 @@ if (isset($_POST['submit'])) {
                                 </div>
 
                                 <!-- Submit button -->
-                                <button type="submit" name="submit" class="btn btn-primary btn-block mb-2">
+                                <button type="submit" name="submit" class="btn btn-primary   mb-2">
                                     Register
                                 </button>
-                                <button type="reset" class="btn btn-danger btn-block mb-5">
+                                <button type="reset" class="btn btn-danger   mb-5">
                                     Reset
                                 </button>
                                 <p class="mb-5 pb-lg-2" style="color: #393f81;">Already have an account? <a href="login.php" style="color: #393f81;">Login Here.</a></p>

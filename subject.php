@@ -128,10 +128,10 @@ if (isset($_POST['add_class'])) {
                 <div class="d-flex">
                     <div class="form-group  ">
                         <div class="d-flex">
-                            <h4 class=" mx-2">School Year </h4> <button class="btn btn-primary rounded-circle btn-sm" data-bs-toggle="modal" data-bs-target="#myModal"> + </button>
+                            <h4 class=" mx-2">School Year </h4> <button class="btn btn-primary rounded-circle btn-sm" data-bs-toggle="modal" data-bs-target="#addClass"> + </button>
                         </div>
                         <div class=" mt-2 ">
-                            <select class=" form-select" name="gender" required aria-label="Default select example">
+                            <select class=" form-select" name="school_year" id="school_year" required aria-label="Default select example">
                                 <?php
 
                                 $sql = "SELECT * FROM class WHERE subject_id=" . $subject_id;
@@ -154,7 +154,7 @@ if (isset($_POST['add_class'])) {
 
             <div class="col-md-7  ">
                 <div class="d-flex justify-content-end">
-                    <button class="btn btn-primary rounded-button mx-2">Add student</button>
+                    <button class="btn btn-primary rounded-button mx-2" data-bs-toggle="modal" data-bs-target="#addStudent">Add student</button>
                     <button class="btn btn-primary rounded-button mx-2">Add attendance</button>
                 </div>
 
@@ -190,9 +190,7 @@ if (isset($_POST['add_class'])) {
 
 
     <!-- add class -->
-
-    <!-- The Modal -->
-    <div class="modal" id="myModal">
+    <div class="modal" id="addClass">
         <div class="modal-dialog">
             <form method="POST" action="">
                 <div class="modal-content">
@@ -260,7 +258,44 @@ if (isset($_POST['add_class'])) {
             </form>
         </div>
     </div>
+    <!-- add student -->
+    <div class="modal" id="addStudent">
+        <div class="modal-dialog">
 
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Student</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 py-1">
+                            <div class="form-group row">
+                                <label class="" for="lrn">Learner Reference Number:</label>
+                                <div class="mt-2">
+                                    <input class=" form-control" type="text" name="lrn" id="lrn">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" name="add_student" onclick="addStudent()">Add</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
 
 </body>
 
@@ -278,6 +313,14 @@ if (isset($_POST['add_class'])) {
         var image = document.getElementById('output2');
         image.src = URL.createObjectURL(event.target.files[0]);
         image.setAttribute("class", "out");
+    }
+
+
+    function addStudent() {
+        let lrn = $("#lrn").val();
+        let school_year = $("#school_year").val()
+
+        console.log(lrn, school_year)
     }
 </script>
 

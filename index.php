@@ -79,9 +79,10 @@ if (isset($_SESSION['isLogin'])) {
                                 <p class="card-text">Teacher <?php echo $row['fullname']; ?></p>
                                 <p class="card-text"></i> <?php echo $row['grade_lvl']; ?></b> </p>
                                 <!-- <a href="location_details.php" class="btn btn-primary">Book Now</a> -->
+                                <a href="<?php echo 'subject.php?subject_id=' . $row['subject_id'] ?>" class="btn btn-primary">View Details</a>
 
                             </div>
-                            <a href="<?php echo 'subject.php?subject_id=' . $row['subject_id'] ?>" class="btn btn-primary">View Details</a>
+
 
 
 
