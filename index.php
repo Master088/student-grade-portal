@@ -1,8 +1,8 @@
 <?php
 session_start();
- 
- // prevent unauthenticated user and not student user to access this page
- if (isset($_SESSION['isLogin'])) {
+include 'mysql_connect.php';
+// prevent unauthenticated user and not student user to access this page
+if (isset($_SESSION['isLogin'])) {
     if (!$_SESSION['isLogin']) {
         header('Location:login.php');
     } else {
@@ -36,14 +36,14 @@ session_start();
 <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
 <script src="https://kit.fontawesome.com/a81368914c.js"></script>
 <style>
- 
+
 </style>
 
 <link rel="stylesheet" href="style.css">
- 
-<body >
 
-<nav class="navbar navbar-expand-lg navbar-light  px-4 header  bg-primary">
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light  px-4 header  bg-primary">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -68,52 +68,44 @@ session_start();
     </nav>
 
     <div class=" mt-3">
-        <h2 class="text-center">Subject</h2>
+        <h2 class="text-center">My Subject</h2>
     </div>
 
 
     <div class="row d-flex justify-content-center">
+        <?php
 
-    <a  href="<?php echo 'subject.php?subject_id=123' ?>" class="col-md-3 card py-5 mx-2 my-2">
-        <h3 class="text-center">Math</h3>
-        <p>Teacher: John doe</p>
-        <p>Schedule: 10-11 t,th</p>
-        <p>Grade:1</p>
-    </a>
-    <a  href="<?php echo 'subject.php?subject_id=123' ?>" class="col-md-3 card py-5 mx-2 my-2">
-        <h3 class="text-center">Math</h3>
-        <p>Teacher: John doe</p>
-        <p>Schedule: 10-11 t,th</p>
-        <p>Grade:1</p>
-    </a>
- 
-   
-    <a  href="<?php echo 'subject.php?subject_id=123' ?>" class="col-md-3 card py-5 mx-2 my-2">
-        <h3 class="text-center">Math</h3>
-        <p>Teacher: John doe</p>
-        <p>Schedule: 10-11 t,th</p>
-        <p>Grade:1</p>
-    </a>
- 
-   
-    <a  href="<?php echo 'subject.php?subject_id=123' ?>" class="col-md-3 card py-5 mx-2 my-2">
-        <h3 class="text-center">Math</h3>
-        <p>Teacher: John doe</p>
-        <p>Schedule: 10-11 t,th</p>
-        <p>Grade:1</p>
-    </a>
- 
-   
-   
-  
+        $sql = "SELECT *
+        FROM subject
+        INNER JOIN teacher ON subject.teacher_id=teacher.teacher_id 
+        WHERE subject.teacher_id = " . $_SESSION['id'];
+
+        $res = mysqli_query($conn, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            while ($row = mysqli_fetch_assoc($res)) {  ?>
+                <a href="<?php echo 'subject.php?subject_id=' . $row['subject_id'] ?>" class="col-md-3 card py-5 mx-2 my-2">
+                    <h3 class="text-center"><?php echo $row['subject_title']; ?></h3>
+                    <p>Teacher: <?php echo $row['fullname']; ?></p>
+                    <p><?php echo $row['grade_lvl']; ?></p>
+                </a>
+        <?php
+            }
+        }
+        ?>
+
+
+
+
+
+
     </div>
 
 
 
 
 </body>
- 
- 
+
+
 
 <script>
     var loadFile = function(event) {
