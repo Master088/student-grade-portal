@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 03, 2022 at 01:18 PM
+-- Generation Time: Dec 04, 2022 at 02:10 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -20,6 +20,46 @@ SET time_zone = "+00:00";
 --
 -- Database: `student-grade-db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `class`
+--
+
+CREATE TABLE `class` (
+  `class_id` int(11) NOT NULL,
+  `school_year` varchar(50) NOT NULL,
+  `schedule` varchar(50) NOT NULL,
+  `subject_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `class`
+--
+
+INSERT INTO `class` (`class_id`, `school_year`, `schedule`, `subject_id`) VALUES
+(2, '2022-2023', '312312', 1),
+(3, '2021-2022', 'dasd', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `class_member`
+--
+
+CREATE TABLE `class_member` (
+  `class_member_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `class_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `class_member`
+--
+
+INSERT INTO `class_member` (`class_member_id`, `student_id`, `class_id`) VALUES
+(6, 8, 2);
 
 -- --------------------------------------------------------
 
@@ -101,6 +141,21 @@ INSERT INTO `teacher` (`teacher_id`, `fullname`, `username`, `password`) VALUES
 --
 
 --
+-- Indexes for table `class`
+--
+ALTER TABLE `class`
+  ADD PRIMARY KEY (`class_id`),
+  ADD KEY `subject_id` (`subject_id`);
+
+--
+-- Indexes for table `class_member`
+--
+ALTER TABLE `class_member`
+  ADD PRIMARY KEY (`class_member_id`),
+  ADD KEY `class_member_ibfk_1` (`class_id`),
+  ADD KEY `student_id` (`student_id`);
+
+--
 -- Indexes for table `student`
 --
 ALTER TABLE `student`
@@ -124,6 +179,18 @@ ALTER TABLE `teacher`
 --
 
 --
+-- AUTO_INCREMENT for table `class`
+--
+ALTER TABLE `class`
+  MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `class_member`
+--
+ALTER TABLE `class_member`
+  MODIFY `class_member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
@@ -144,6 +211,19 @@ ALTER TABLE `teacher`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `class`
+--
+ALTER TABLE `class`
+  ADD CONSTRAINT `subject_id` FOREIGN KEY (`subject_id`) REFERENCES `subject` (`subject_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `class_member`
+--
+ALTER TABLE `class_member`
+  ADD CONSTRAINT `class_member_ibfk_1` FOREIGN KEY (`class_id`) REFERENCES `class` (`class_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `class_member_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `subject`
