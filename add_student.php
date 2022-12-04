@@ -15,7 +15,7 @@ if (
     $row = mysqli_fetch_assoc($res);
 
     if (mysqli_num_rows($res) > 0) {
-        $sql = "SELECT * FROM  class_member where student_id='" . $row['id'] . "'";
+        $sql = "SELECT * FROM  class_member where student_id='" . $row['id'] . "' AND class_id='" . $class_id . "'";
         $res = mysqli_query($conn, $sql);
 
         if (mysqli_num_rows($res) > 0) {
