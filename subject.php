@@ -86,7 +86,7 @@ if (isset($_POST['add_class'])) {
 <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
 <script src="https://kit.fontawesome.com/a81368914c.js"></script>
 <style>
-* {
+    * {
         box-sizing: border-box;
     }
 
@@ -174,7 +174,7 @@ if (isset($_POST['add_class'])) {
             <div class="col-md-7  ">
                 <div class="d-flex justify-content-end">
                     <button class="btn btn-primary rounded-button mx-2" data-bs-toggle="modal" data-bs-target="#addStudent">Add student</button>
-                    <button class="btn btn-primary rounded-button mx-2">Add attendance</button>
+                    <button class="btn btn-primary rounded-button mx-2" data-bs-toggle="modal" data-bs-target="#addAttendance" onclick="getAttendanceList()">Add attendance</button>
                 </div>
 
             </div>
@@ -184,6 +184,13 @@ if (isset($_POST['add_class'])) {
     <div class="container mt-3">
         <h2 class="text-center">My Students</h2>
         <div id="table" class="text-dark mx-2"></div>
+
+    </div>
+
+    <div class="container mt-5">
+        <hr>
+        <h2 class="text-center">Attedance</h2>
+        <div id="attendance_table" class="text-dark mx-2"></div>
 
     </div>
 
@@ -296,6 +303,95 @@ if (isset($_POST['add_class'])) {
         </div>
     </div>
 
+    <!--remove student -->
+    <div class="modal" id="removeStudent">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Remove Student</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <h5>Are you sure you want to delete this record?</h5>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" name="add_student" id="btn_remove_student">Remove</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!--add attendance -->
+    <div class="modal" id="addAttendance">
+        <div class="modal-dialog modal-xl">
+
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add attendance</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="row py-2">
+
+                        <div class="form-check ">
+                            <input class="form-check-input me-2" type="checkbox" value="yes" name="isTeacher" id="isTeacher" checked disabled />
+                            <label class="form-check-label" for="isTeacher">
+                                John doe(Present)
+                            </label>
+                        </div>
+                        <div class="form-check ">
+                            <input class="form-check-input me-2" type="checkbox" value="yes" name="isTeacher" id="isTeacher" disabled />
+                            <label class="form-check-label" for="isTeacher">
+                                John doe(Absent)
+                            </label>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="">
+                        <div class="row">
+                            <div class="col-md-6 py-1">
+                                <div class="form-group row">
+                                    <label class="" for="lrn">Date:</label>
+                                    <div class="mt-2">
+                                        <input class=" form-control" type="date" name="date" id="date" require>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="container">
+                        <hr>
+                        <div class="row d-flex justify-content-around" id="attendance_list">
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" name="add_attendance" onclick="addAttendance()">Add Attendance</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
 </body>
 
 
@@ -314,8 +410,13 @@ if (isset($_POST['add_class'])) {
         image.setAttribute("class", "out");
     }
 
+
+
     $(document).ready(function() {
         getStudent()
+        delete_record()
+        attendance()
+        getAttendanceTable()
     });
 
     function addStudent() {
@@ -335,8 +436,7 @@ if (isset($_POST['add_class'])) {
                 console.log("here", data)
                 data = $.parseJSON(data);
                 if (data.status == "success") {
-
-                    $("#table").html(data.html);
+                    getStudent()
                     $('#addStudent').modal('toggle');
                 } else {
                     alert(data.message)
@@ -344,7 +444,7 @@ if (isset($_POST['add_class'])) {
             },
         });
 
-        console.log(lrn, school_year)
+
     }
 
     function getStudent() {
@@ -367,7 +467,119 @@ if (isset($_POST['add_class'])) {
             },
         });
 
-        console.log(lrn, school_year)
+
+    }
+
+    ///delete record
+    function delete_record() {
+        $(document).on("click", "#btn_del", function() {
+            var student_id = $(this).attr("data-id1");
+            $("#removeStudent").modal("show");
+            $(document).on("click", "#btn_remove_student", function() {
+
+                $.ajax({
+                    url: "remove_student.php",
+                    method: "post",
+                    data: {
+                        student_id
+                    },
+                    success: function(data) {
+                        data = $.parseJSON(data);
+                        if (data.status == "success") {
+                            getStudent()
+                            $("#removeStudent").modal("hide");
+                        } else {
+                            alert(data.message)
+                        }
+                    },
+                });
+
+            });
+        });
+    }
+    var attendance_list = []
+
+    function addAttendance() {
+        let school_year = $("#school_year").val()
+        let date = $("#date").val()
+
+        let absent = JSON.stringify(attendance_list)
+
+        $.ajax({
+            url: "add_attendance.php",
+            method: "POST",
+            data: {
+                class_id: school_year,
+                absent,
+                date
+            },
+            success: function(data) {
+                getAttendanceTable()
+                $("#addAttendance").modal("hide");
+            },
+        });
+
+    }
+    ///delete record
+    function attendance() {
+        $(document).on("click", "#student", function() {
+            var student_id = $(this).val();
+            console.log(student_id)
+            // check if id is in the list
+            // if yes remove if not add
+
+            if (attendance_list.includes(student_id)) {
+                attendance_list = attendance_list.filter((item) => {
+                    return item != student_id;
+                });
+            } else {
+                attendance_list.push(student_id)
+            }
+            console.log(attendance_list)
+        });
+    }
+
+    function getAttendanceList() {
+
+        let school_year = $("#school_year").val()
+
+        $.ajax({
+            url: "get_attendance_list.php",
+            method: "GET",
+            data: {
+                class_id: school_year
+            },
+            success: function(data) {
+                console.log(data);
+                data = $.parseJSON(data);
+                if (data.status == "success") {
+                    $("#attendance_list").html(data.html);
+                }
+            },
+        });
+
+
+    }
+
+    function getAttendanceTable() {
+        let school_year = $("#school_year").val()
+
+        $.ajax({
+            url: "get_attendance_table.php",
+            method: "GET",
+            data: {
+                class_id: school_year
+            },
+            success: function(data) {
+                console.log(data);
+                data = $.parseJSON(data);
+                if (data.status == "success") {
+                    $("#attendance_table").html(data.html);
+                }
+            },
+        });
+
+
     }
 </script>
 

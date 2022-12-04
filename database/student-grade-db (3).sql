@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2022 at 02:10 AM
+-- Generation Time: Dec 04, 2022 at 12:32 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -40,7 +40,57 @@ CREATE TABLE `class` (
 
 INSERT INTO `class` (`class_id`, `school_year`, `schedule`, `subject_id`) VALUES
 (2, '2022-2023', '312312', 1),
-(3, '2021-2022', 'dasd', 1);
+(3, '2021-2022', 'dasd', 1),
+(4, '2022-2023', '312312', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `class_attendance`
+--
+
+CREATE TABLE `class_attendance` (
+  `attendance_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `class_id` int(11) NOT NULL,
+  `status` varchar(50) NOT NULL,
+  `date` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `class_attendance`
+--
+
+INSERT INTO `class_attendance` (`attendance_id`, `student_id`, `class_id`, `status`, `date`) VALUES
+(1, 8, 2, 'present', ''),
+(2, 9, 2, 'present', ''),
+(3, 8, 2, 'absent', '2022-12-02'),
+(4, 9, 2, 'present', '2022-12-02'),
+(5, 8, 4, 'absent', '2022-12-06'),
+(6, 9, 4, 'present', '2022-12-06'),
+(7, 8, 4, 'present', '2022-12-07'),
+(8, 9, 4, 'absent', '2022-12-07'),
+(9, 9, 4, 'absent', ''),
+(10, 8, 4, 'present', ''),
+(11, 10, 4, 'absent', ''),
+(12, 11, 4, 'present', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `class_grade`
+--
+
+CREATE TABLE `class_grade` (
+  `grade_id` int(11) NOT NULL,
+  `class_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `prerogative` float NOT NULL,
+  `summative` float NOT NULL,
+  `bonus` float NOT NULL,
+  `exam` float NOT NULL,
+  `total` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -59,7 +109,12 @@ CREATE TABLE `class_member` (
 --
 
 INSERT INTO `class_member` (`class_member_id`, `student_id`, `class_id`) VALUES
-(6, 8, 2);
+(13, 9, 4),
+(15, 8, 4),
+(16, 9, 2),
+(19, 8, 2),
+(20, 10, 4),
+(21, 11, 4);
 
 -- --------------------------------------------------------
 
@@ -83,7 +138,10 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`id`, `lrn`, `fullname`, `guardian_name`, `username`, `password`, `profile`, `gender`) VALUES
-(8, '313', 'test', 'test', 'test', '1', '', 'male');
+(8, '313', 'test', 'test', 'test', '1', '', 'male'),
+(9, '1', 'Jocel', 'Jocel', 'admin', '1', 'upload/20221204041027logic.png', 'Male'),
+(10, '2', 'student1', '', 'student1', '1', '', 'Female'),
+(11, '3', 'student2', '', 'student2', '1', '', 'Female');
 
 -- --------------------------------------------------------
 
@@ -148,6 +206,22 @@ ALTER TABLE `class`
   ADD KEY `subject_id` (`subject_id`);
 
 --
+-- Indexes for table `class_attendance`
+--
+ALTER TABLE `class_attendance`
+  ADD PRIMARY KEY (`attendance_id`),
+  ADD KEY `class_id` (`class_id`),
+  ADD KEY `student_id` (`student_id`);
+
+--
+-- Indexes for table `class_grade`
+--
+ALTER TABLE `class_grade`
+  ADD PRIMARY KEY (`grade_id`),
+  ADD KEY `class_id` (`class_id`),
+  ADD KEY `student_id` (`student_id`);
+
+--
 -- Indexes for table `class_member`
 --
 ALTER TABLE `class_member`
@@ -182,19 +256,31 @@ ALTER TABLE `teacher`
 -- AUTO_INCREMENT for table `class`
 --
 ALTER TABLE `class`
-  MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `class_attendance`
+--
+ALTER TABLE `class_attendance`
+  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `class_grade`
+--
+ALTER TABLE `class_grade`
+  MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `class_member`
 --
 ALTER TABLE `class_member`
-  MODIFY `class_member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `class_member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `subject`
@@ -219,11 +305,18 @@ ALTER TABLE `class`
   ADD CONSTRAINT `subject_id` FOREIGN KEY (`subject_id`) REFERENCES `subject` (`subject_id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `class_member`
+-- Constraints for table `class_attendance`
 --
-ALTER TABLE `class_member`
-  ADD CONSTRAINT `class_member_ibfk_1` FOREIGN KEY (`class_id`) REFERENCES `class` (`class_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `class_member_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`) ON DELETE CASCADE;
+ALTER TABLE `class_attendance`
+  ADD CONSTRAINT `class_attendance_ibfk_1` FOREIGN KEY (`class_id`) REFERENCES `class` (`class_id`),
+  ADD CONSTRAINT `class_attendance_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`);
+
+--
+-- Constraints for table `class_grade`
+--
+ALTER TABLE `class_grade`
+  ADD CONSTRAINT `class_grade_ibfk_1` FOREIGN KEY (`class_id`) REFERENCES `class` (`class_id`),
+  ADD CONSTRAINT `class_grade_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`);
 
 --
 -- Constraints for table `subject`
