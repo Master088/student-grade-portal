@@ -88,9 +88,7 @@ if (isset($_POST['submit'])) {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-<style>
-    body {}
-</style>
+
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
 <!-- Google Fonts -->
@@ -102,23 +100,57 @@ if (isset($_POST['submit'])) {
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
 
-<link rel="stylesheet" href="style.css">
-
+<!-- <link rel="stylesheet" href="style.css"> -->
+<style>
+    body {
+        font-family: Poppins;
+    }
+    .form-label{
+        color:grey;
+        justify-content: start;
+        display: flex;
+    }
+    .btn-submit{
+        
+        justify-content: start;
+        display: flex;
+    }
+    .background-radial-gradient {
+      background-color: hsl(218, 41%, 15%);
+      background-image: radial-gradient(650px circle at 0% 0%,
+          hsl(218, 41%, 35%) 15%,
+          hsl(218, 41%, 30%) 35%,
+          hsl(218, 41%, 20%) 75%,
+          hsl(218, 41%, 19%) 80%,
+          transparent 100%),
+        radial-gradient(1250px circle at 100% 100%,
+          hsl(218, 41%, 45%) 15%,
+          hsl(218, 41%, 30%) 35%,
+          hsl(218, 41%, 20%) 75%,
+          hsl(218, 41%, 19%) 80%,
+          transparent 100%);
+          height: 500px;
+    }
+    .img-card{
+        
+        justify-content: start;
+        display: flex;
+       
+    }
+</style>
 <body>
 
     <div>
         <section class="text-center">
 
-            <div class="p-5 bg-image" style="
-                    background-image: url('img/background.png');
-                    height: 300px;
-                    "></div>
+            <div class="p-5 background-radial-gradient"></div>
 
 
             <div class="card mx-4 mx-md-5 shadow-5-strong" style="
-                    margin-top: -100px;
+                    margin-top: -400px;
                     background: hsla(0, 0%, 100%, 0.8);
                     backdrop-filter: blur(30px);
                     ">
@@ -128,11 +160,14 @@ if (isset($_POST['submit'])) {
                         <div class="col-lg-8">
                             <h2 class="fw-bold mb-5">Register From</h2>
                             <form method="POST" action="" enctype="multipart/form-data">
+                                
 
-                                <div>
-                                    <div class="form">
-                                        <img src="profile.png" class="border" alt="Profile" id="output" width="250">
-                                        <input accept="image/*" onchange="loadFile(event)" type="file" name="file" required>
+                                <div class="img-card">
+                                    <div class="form form-control">
+                                        <img src="profile.png" class="border" alt="Profile" id="output" width="250" height="250">
+                                        <!-- <input accept="image/*" onchange="loadFile(event)" type="file" name="file" required> -->
+                                        <label class="form-label" for="upload">Upload Image</label>
+                                        <input type="file" class="form-control" id="upload" accept="image/*" onchange="loadFile(event)" name="file" required/>
                                     </div>
                                 </div>
                                 <div class=" mb-4">
@@ -191,13 +226,16 @@ if (isset($_POST['submit'])) {
                                 </div>
 
                                 <!-- Submit button -->
-                                <button type="submit" name="submit" class="btn btn-primary   mb-2">
-                                    Register
-                                </button>
-                                <button type="reset" class="btn btn-danger   mb-5">
-                                    Reset
-                                </button>
-                                <p class="mb-5 pb-lg-2" style="color: #393f81;">Already have an account? <a href="login.php" style="color: #393f81;">Login Here.</a></p>
+                                <div class="btn-submit">
+                                    <button type="submit" name="submit" class="btn btn-primary mb-5">
+                                        <i class="bi bi-send-plus-fill"></i> Register
+                                    </button>
+                                    <button type="reset" class="btn btn-danger mb-5" style="margin-left: 1vw;">
+                                        <i class="bi bi-x-octagon-fill"></i> Reset
+                                    </button>
+                                    
+                                </div> 
+                                <p class="mb-2 pb-lg-2" style="color: #393f81; justify-content: start; display: flex;">Already have an account? <a href="login.php" style="color: #393f81;">Login Here.</a></p>
 
 
                             </form>

@@ -114,7 +114,7 @@ if (isset($_POST['submit'])) {
         margin: 0;
         font-family: Poppins;
         font-weight: 300;
-        background-image: url("img/background.png");
+        /* background-image: url("img/background.png"); */
         height: 100%;
         font-size: 1em;
         overflow-x: hidden;
@@ -123,33 +123,41 @@ if (isset($_POST['submit'])) {
         background-repeat: no-repeat;
         background-size: cover;
     }
-
-    .login-content p {
-        width: 700px;
-        line-height: 26px;
-        font-size: 18px;
-        text-align: justify;
+    .background-radial-gradient {
+      background-color: hsl(218, 41%, 15%);
+      background-image: radial-gradient(650px circle at 0% 0%,
+          hsl(218, 41%, 35%) 15%,
+          hsl(218, 41%, 30%) 35%,
+          hsl(218, 41%, 20%) 75%,
+          hsl(218, 41%, 19%) 80%,
+          transparent 100%),
+        radial-gradient(1250px circle at 100% 100%,
+          hsl(218, 41%, 45%) 15%,
+          hsl(218, 41%, 30%) 35%,
+          hsl(218, 41%, 20%) 75%,
+          hsl(218, 41%, 19%) 80%,
+          transparent 100%);
     }
-
-    .logo {
-        width: 200px;
+    .bg-glass {
+      background-color: hsla(0, 0%, 100%, 0.9) !important;
+      backdrop-filter: saturate(200%) blur(25px);
     }
 </style>
 
-<body>
+<body class="background-radial-gradient">
 
-    <div>
-
+    <div >
+        
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col col-md-5  ">
-                    <div class="card" style="border-radius: 1rem;">
+                    <div class="card bg-glass" style="border-radius: 1rem;">
                         <div class="row g-0">
 
                             <div class="col-md-12 d-flex align-items-center">
                                 <div class="card-body p-4 text-black">
 
-                                    <form method="POST">
+                                    <form method="POST" class="needs-validation" novalidate>
 
                                         <div class="d-flex align-items-center mb-3 pb-1">
                                             <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
@@ -161,12 +169,13 @@ if (isset($_POST['submit'])) {
                                         <div class="form mb-4">
                                             <label class="form-label" for="username">Username</label>
                                             <input type="text" id="username" name="username" class="form-control form-control-lg" required>
-
+                                            <div class="invalid-feedback">Please Enter Username.</div>
                                         </div>
 
                                         <div class="form mb-4">
                                             <label class="form-label" for="password">Password</label>
                                             <input type="password" name="password" id="password" class="form-control form-control-lg" required>
+                                            <div class="invalid-feedback">Please Enter Password.</div>
 
                                         </div>
                                         <div class="form-check mb-4">
@@ -192,7 +201,7 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
         </div>
-        </section>
+       
     </div>
 
 
@@ -201,5 +210,25 @@ if (isset($_POST['submit'])) {
 
     <script type="text/javascript" src="js/main.js"></script>
 </body>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (() => {
+        'use strict';
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms).forEach((form) => {
+            form.addEventListener('submit', (event) => {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+            }, false);
+        });
+        })();
+    </script>
 
 </html>
