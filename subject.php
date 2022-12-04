@@ -82,9 +82,11 @@ if (isset($_POST['add_class'])) {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
 <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
 <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <style>
     * {
         box-sizing: border-box;
@@ -112,31 +114,14 @@ if (isset($_POST['add_class'])) {
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light  px-4 header  bg-primary">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <a href="index.php" class="text-white display-6 ">Student Record System</a>
-        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent ">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0  ">
-                <li>
-
-                    <a class=" text-white ">
-
-                        <form action="logout.php" method="POST">
-                            <button type="submit" name='logout' class="btn btn-danger  ">Logout</button>
-
-                        </form>
-                    </a>
-                </li>
-            </ul>
-            </li>
-            </ul>
-        </div>
+    <nav class="navbar navbar-light bg-dark">
+        <a href="index.php" class="navbar-brand text-white">Student Record System</a>
+        <form action="logout.php" method="POST">
+            <button type="submit" name='logout' class="btn btn-danger  "> <i class="bi bi-person-dash-fill"></i> Logout</button>
+        </form>
     </nav>
 
-    <div class=" mt-3">
+    <div class=" mt-3 mb-5">
         <h1 class="text-center"> <?php echo $subject_details['subject_title']; ?></h1>
     </div>
 
@@ -147,7 +132,10 @@ if (isset($_POST['add_class'])) {
                 <div class="d-flex">
                     <div class="form-group  ">
                         <div class="d-flex">
-                            <h4 class=" mx-2">School Year </h4> <button class="btn btn-primary rounded-circle btn-sm" data-bs-toggle="modal" data-bs-target="#addClass"> + </button>
+                            <!-- <h4 class=" mx-2">School Year </h4> <button class="btn btn-primary rounded-circle btn-sm" data-bs-toggle="modal" data-bs-target="#addClass"><i class="bi bi-plus-circle-fill"></i></button> -->
+                            <h4 class=" mx-2">School Year </h4>
+                            <button class="btn btn-info " data-bs-toggle="modal" data-bs-target="#addClass"><i class="bi bi-plus-circle-fill"></i> Add School Year</button>
+                            
                         </div>
                         <div class=" mt-2 ">
                             <select class=" form-select" onchange="getStudent()" name="school_year" id="school_year" required aria-label="Default select example">
@@ -173,8 +161,8 @@ if (isset($_POST['add_class'])) {
 
             <div class="col-md-7  ">
                 <div class="d-flex justify-content-end">
-                    <button class="btn btn-primary rounded-button mx-2" data-bs-toggle="modal" data-bs-target="#addStudent">Add student</button>
-                    <button class="btn btn-primary rounded-button mx-2" data-bs-toggle="modal" data-bs-target="#addAttendance" onclick="getAttendanceList()">Add attendance</button>
+                    <button class="btn btn-info rounded-button mx-2" data-bs-toggle="modal" data-bs-target="#addStudent"><i class="bi bi-person-plus"></i> Add Student</button>
+                    <button class="btn btn-info rounded-button mx-2" data-bs-toggle="modal" data-bs-target="#addAttendance" onclick="getAttendanceList()"><i class="bi bi-card-checklist"></i> Add attendance</button>
                 </div>
 
             </div>
@@ -186,19 +174,18 @@ if (isset($_POST['add_class'])) {
         <div id="table" class="text-dark mx-2"></div>
 
     </div>
-
-    <div class="container mt-5">
-        <hr>
-        <h2 class="text-center">Attedance</h2>
-        <div id="attendance_table" class="text-dark mx-2"></div>
-
+    <div class="container mt-5" >
+        <div class="card card-body">
+            <h2 class="text-center">Attedance</h2>
+            <div id="attendance_table" class="text-dark mx-2"></div>
+        </div>
     </div>
 
 
     <!-- add class -->
-    <div class="modal" id="addClass">
+    <div class="modal fade" id="addClass">
         <div class="modal-dialog">
-            <form method="POST" action="">
+            <form method="POST" action="" >
                 <div class="modal-content">
 
                     <!-- Modal Header -->
@@ -213,9 +200,9 @@ if (isset($_POST['add_class'])) {
                         <div class="row">
                             <div class="col-md-12 py-1">
                                 <div class="form-group row">
-                                    <label class=" " for="date_from">Date from:</label>
+                                    <label class="" for="date_from">Date from:</label>
                                     <div class=" mt-2">
-                                        <select class=" form-select" name="date_from" required aria-label="Default select example" required>
+                                        <select class="form-select" name="date_from" aria-label="Default select example" required>
                                             <option selected disabled>Please Select year</option>
                                             <?php
                                             for ($i = date('Y'); $i > 1950; $i--) {
@@ -223,6 +210,7 @@ if (isset($_POST['add_class'])) {
                                             }
                                             ?>
                                         </select>
+                                        <!-- <div class="invalid-feedback">Please Select Date From.</div> -->
                                     </div>
                                 </div>
                             </div>
@@ -230,7 +218,7 @@ if (isset($_POST['add_class'])) {
                                 <div class="form-group row">
                                     <label class=" " for="date_to">Date to:</label>
                                     <div class=" mt-2">
-                                        <select class=" form-select" name="date_to" required aria-label="Default select example" required>
+                                        <select class=" form-select" name="date_to" aria-label="Default select example" required>
                                             <option selected disabled>Please Select year</option>
                                             <?php
                                             for ($i = date('Y') + 1; $i > 1950; $i--) {
@@ -238,6 +226,7 @@ if (isset($_POST['add_class'])) {
                                             }
                                             ?>
                                         </select>
+                                        <!-- <div class="invalid-feedback">Please Select Date To.</div> -->
                                     </div>
                                 </div>
                             </div>
@@ -245,7 +234,8 @@ if (isset($_POST['add_class'])) {
                                 <div class="form-group row">
                                     <label class="" for="schedule">Schedule:</label>
                                     <div class="mt-2">
-                                        <input class=" form-control" type="text" name="schedule" id="schedule">
+                                        <input class=" form-control" type="text" name="schedule" id="schedule" required>
+                                        <!-- <div class="invalid-feedback">Please Enter Schedule.</div> -->
                                     </div>
                                 </div>
                             </div>
@@ -256,8 +246,8 @@ if (isset($_POST['add_class'])) {
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" name="add_class">Add</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" name="add_class" >Submit</button>
                     </div>
 
                 </div>
@@ -265,9 +255,9 @@ if (isset($_POST['add_class'])) {
         </div>
     </div>
     <!-- add student -->
-    <div class="modal" id="addStudent">
+    <div class="modal fade" id="addStudent">
         <div class="modal-dialog">
-
+            
             <div class="modal-content">
 
                 <!-- Modal Header -->
@@ -281,9 +271,10 @@ if (isset($_POST['add_class'])) {
                     <div class="row">
                         <div class="col-md-12 py-1">
                             <div class="form-group row">
+                                <p id='message' class="text-danger"></p>
                                 <label class="" for="lrn">Learner Reference Number:</label>
                                 <div class="mt-2">
-                                    <input class=" form-control" type="text" name="lrn" id="lrn">
+                                    <input class=" form-control" type="text" name="lrn" id="lrn" required>
                                 </div>
                             </div>
                         </div>
@@ -294,8 +285,8 @@ if (isset($_POST['add_class'])) {
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" name="add_student" onclick="addStudent()">Add</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" name="add_student" onclick="addStudent()">Add Student</button>
                 </div>
 
             </div>
@@ -304,7 +295,7 @@ if (isset($_POST['add_class'])) {
     </div>
 
     <!--remove student -->
-    <div class="modal" id="removeStudent">
+    <div class="modal fade" id="removeStudent">
         <div class="modal-dialog">
 
             <div class="modal-content">
@@ -317,13 +308,17 @@ if (isset($_POST['add_class'])) {
 
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <h5>Are you sure you want to delete this record?</h5>
+                    <p>Are you sure you want to delete this record?</p>
                 </div>
 
                 <!-- Modal footer -->
-                <div class="modal-footer">
+                <!-- <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" name="add_student" id="btn_remove_student">Remove</button>
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div> -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" name="deleteRecord" class="btn btn-danger" name="add_student" id="btn_remove_student">Remove</button>
                 </div>
 
             </div>
@@ -332,51 +327,45 @@ if (isset($_POST['add_class'])) {
     </div>
 
     <!--add attendance -->
-    <div class="modal" id="addAttendance">
-        <div class="modal-dialog modal-xl">
+    <div class="modal fade" id="addAttendance">
+        <div class="modal-dialog modal-lg">
 
             <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Add attendance</h4>
+                    <h4 class="modal-title">Add Attendance</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div class="row py-2">
-
-                        <div class="form-check ">
+                        <div class="card-body">
+                            <div class="form-check ">
                             <input class="form-check-input me-2" type="checkbox" value="yes" name="isTeacher" id="isTeacher" checked disabled />
                             <label class="form-check-label" for="isTeacher">
-                                John doe(Present)
+                                Check if (Present)
                             </label>
                         </div>
                         <div class="form-check ">
                             <input class="form-check-input me-2" type="checkbox" value="yes" name="isTeacher" id="isTeacher" disabled />
                             <label class="form-check-label" for="isTeacher">
-                                John doe(Absent)
+                                Un-Check if (Absent)
                             </label>
                         </div>
-                        <hr>
+                        </div>                        
+                        
                     </div>
-                    <div class="">
-                        <div class="row">
-                            <div class="col-md-6 py-1">
-                                <div class="form-group row">
-                                    <label class="" for="lrn">Date:</label>
-                                    <div class="mt-2">
-                                        <input class=" form-control" type="date" name="date" id="date" require>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
+                    <div class="form-group">
+                        <label class="" for="date">Date</label>
+                        <input class=" form-control" type="date" name="date" id="date" require>
                     </div>
-                    <div class="container">
-                        <hr>
-                        <div class="row d-flex justify-content-around" id="attendance_list">
+                    
+                    <div class="row">
+                        <div class="col" >
+                             <label class="" for="attendance_list">Student Names</label>
+                            <div class="row" id="attendance_list" >
                         </div>
                     </div>
 
@@ -385,7 +374,7 @@ if (isset($_POST['add_class'])) {
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" name="add_attendance" onclick="addAttendance()">Add Attendance</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
 
             </div>
@@ -425,7 +414,11 @@ if (isset($_POST['add_class'])) {
         let lrn = $("#lrn").val();
         let school_year = $("#school_year").val()
 
-        $.ajax({
+        
+        if(lrn == ""){
+            $("#message").html("Please fill in the Blank!");
+        }else{
+            $.ajax({
             url: "add_student.php",
             method: "post",
             data: {
@@ -443,6 +436,7 @@ if (isset($_POST['add_class'])) {
                 }
             },
         });
+        }
 
 
     }
@@ -582,5 +576,26 @@ if (isset($_POST['add_class'])) {
 
     }
 </script>
+
+ <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (() => {
+        'use strict';
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms).forEach((form) => {
+            form.addEventListener('submit', (event) => {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+            }, false);
+        });
+        })();
+    </script>
 
 </html>

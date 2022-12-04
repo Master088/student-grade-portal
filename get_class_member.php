@@ -34,8 +34,8 @@ if (
                         <td>' . $row['lrn'] . '</td>
                         <td>' . $row['fullname'] . '</td>
                         <td>' . $row['gender'] . '</td>
-                        <td><a class="btn btn-success" id="btn_view" href= "student_grade.php?class_member_id=' . $row['class_member_id'] . '">View</a></td>
-                        <td><button class="btn btn-danger" id="btn_del" data-id1=' . $row['class_member_id'] . '><span class="fa fa-trash"></td>
+                        <td><a class="btn btn-success" id="btn_view" href= "student_grade.php?class_member_id=' . $row['class_member_id'] . '"><i class="bi bi-eye-fill"></i> View</a></td>
+                        <td><button class="btn btn-danger" id="btn_del" data-id1=' . $row['class_member_id'] . '><i class="bi bi-trash-fill"></i> Remove</td>
                     </tr> ';
     }
     $value .= '</table>';

@@ -178,6 +178,10 @@ if (isset($_SESSION['isLogin'])) {
                                 <input type="text" class="form-control" id="exam" name="exam">
                             </div>
                             <div class="form-group">
+                                <label for="bonus">Bonus</label>
+                                <input type="text" class="form-control" id="bonus" name="bonus">
+                            </div>
+                            <div class="form-group">
                                 <label for="total">Total</label>
                                 <input type="text" class="form-control" id="total" name="total" disabled>
                             </div>
@@ -205,6 +209,14 @@ if (isset($_SESSION['isLogin'])) {
                                 <label for="exam">Exam</label>
                                 <input type="text" class="form-control" id="exam" name="exam">
                             </div>
+                            <div class="form-group">
+                                <label for="bonus">Bonus</label>
+                                <input type="text" class="form-control" id="bonus" name="bonus">
+                            </div>
+                            <div class="form-group">
+                                <label for="total">Total</label>
+                                <input type="text" class="form-control" id="total" name="total" disabled>
+                            </div>
 
                             <button type="submit" class="btn btn-warning text-white"><span><i class="bi bi-plus-circle-fill"></i></span> Add</button>
                         </form>
@@ -228,6 +240,14 @@ if (isset($_SESSION['isLogin'])) {
                             <div class="form-group">
                                 <label for="exam">Exam</label>
                                 <input type="text" class="form-control" id="exam" name="exam">
+                            </div>
+                            <div class="form-group">
+                                <label for="bonus">Bonus</label>
+                                <input type="text" class="form-control" id="bonus" name="bonus">
+                            </div>
+                            <div class="form-group">
+                                <label for="total">Total</label>
+                                <input type="text" class="form-control" id="total" name="total" disabled>
                             </div>
 
                             <button type="submit" class="btn btn-warning text-white"><span><i class="bi bi-plus-circle-fill"></i></span> Add</button>
@@ -253,6 +273,7 @@ if (isset($_SESSION['isLogin'])) {
                                 <label for="exam">Exam</label>
                                 <input type="text" class="form-control" id="exam" name="exam">
                             </div>
+                            
 
                             <button type="submit" class="btn btn-warning text-white"><span><i class="bi bi-plus-circle-fill"></i></span> Add</button>
                         </form>
