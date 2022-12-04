@@ -131,7 +131,7 @@ if (isset($_POST['add_class'])) {
                             <h4 class=" mx-2">School Year </h4> <button class="btn btn-primary rounded-circle btn-sm" data-bs-toggle="modal" data-bs-target="#addClass"> + </button>
                         </div>
                         <div class=" mt-2 ">
-                            <select class=" form-select" name="school_year" id="school_year" required aria-label="Default select example">
+                            <select class=" form-select" onchange="getStudent()" name="school_year" id="school_year" required aria-label="Default select example">
                                 <?php
 
                                 $sql = "SELECT * FROM class WHERE subject_id=" . $subject_id;
@@ -164,28 +164,8 @@ if (isset($_POST['add_class'])) {
 
     <div class="container mt-3">
         <h2 class="text-center">My Students</h2>
+        <div id="table" class="text-dark mx-2"></div>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>LRN</th>
-                    <th>Fullname</th>
-                    <th>Gender</th>
-                    <th>View</th>
-                    <th>Remove</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>john@example.com</td>
-                    <td><button class="btn btn-info">View</button></td>
-                    <td><button class="btn btn-danger">Remove</button></td>
-                </tr>
-
-            </tbody>
-        </table>
     </div>
 
 
@@ -315,10 +295,58 @@ if (isset($_POST['add_class'])) {
         image.setAttribute("class", "out");
     }
 
+    $(document).ready(function() {
+        getStudent()
+    });
 
     function addStudent() {
+
+        // add validation here for lrn
         let lrn = $("#lrn").val();
         let school_year = $("#school_year").val()
+
+        $.ajax({
+            url: "add_student.php",
+            method: "post",
+            data: {
+                lrn,
+                class_id: school_year
+            },
+            success: function(data) {
+                console.log("here", data)
+                data = $.parseJSON(data);
+                if (data.status == "success") {
+
+                    $("#table").html(data.html);
+                    $('#addStudent').modal('toggle');
+                } else {
+                    alert(data.message)
+                }
+            },
+        });
+
+        console.log(lrn, school_year)
+    }
+
+    function getStudent() {
+
+        let school_year = $("#school_year").val()
+
+        $.ajax({
+            url: "get_class_member.php",
+            method: "post",
+            data: {
+                class_id: school_year
+            },
+            success: function(data) {
+                console.log(data);
+                data = $.parseJSON(data);
+                if (data.status == "success") {
+                    // console.log(data.html);
+                    $("#table").html(data.html);
+                }
+            },
+        });
 
         console.log(lrn, school_year)
     }

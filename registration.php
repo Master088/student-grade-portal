@@ -36,7 +36,7 @@ if (isset($_POST['submit'])) {
 
         if (move_uploaded_file($temp, $directory)) {
 
-            $sql = "SELECT * FROM  account where lrn='$lrn'";
+            $sql = "SELECT * FROM  student where lrn='$lrn'";
             $res = mysqli_query($conn, $sql);
             if (mysqli_num_rows($res) > 0) {
                 echo '<script>';
@@ -44,7 +44,7 @@ if (isset($_POST['submit'])) {
                 echo '</script>';
             } else {
 
-                $sql = "INSERT INTO account 
+                $sql = "INSERT INTO student 
                     SET 
                     id=null,
                     lrn='$lrn',
