@@ -86,7 +86,26 @@ if (isset($_POST['add_class'])) {
 <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
 <script src="https://kit.fontawesome.com/a81368914c.js"></script>
 <style>
+* {
+        box-sizing: border-box;
+    }
 
+    html,
+    body {
+        padding: 0;
+        margin: 0;
+        font-family: Poppins;
+        font-weight: 300;
+        /* background-image: url("img/background.png"); */
+        height: 100%;
+        font-size: 1em;
+        overflow-x: hidden;
+        overflow-y: visible;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: #F8FAFB;
+    }
 </style>
 
 <link rel="stylesheet" href="style.css">

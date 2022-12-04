@@ -122,34 +122,26 @@ if (isset($_POST['submit'])) {
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
+        background-color: #F8FAFB;
     }
-    .background-radial-gradient {
-      background-color: hsl(218, 41%, 15%);
-      background-image: radial-gradient(650px circle at 0% 0%,
-          hsl(218, 41%, 35%) 15%,
-          hsl(218, 41%, 30%) 35%,
-          hsl(218, 41%, 20%) 75%,
-          hsl(218, 41%, 19%) 80%,
-          transparent 100%),
-        radial-gradient(1250px circle at 100% 100%,
-          hsl(218, 41%, 45%) 15%,
-          hsl(218, 41%, 30%) 35%,
-          hsl(218, 41%, 20%) 75%,
-          hsl(218, 41%, 19%) 80%,
-          transparent 100%);
-    }
+    
     .bg-glass {
       background-color: hsla(0, 0%, 100%, 0.9) !important;
       backdrop-filter: saturate(200%) blur(25px);
     }
 </style>
 
-<body class="background-radial-gradient">
+<body >
 
     <div >
         
-        <div class="container py-5 h-100">
-            <div class="row d-flex justify-content-center align-items-center h-100">
+        <!-- <div class="container py-5 h-100">
+            
+            <div class="row d-flex justify-content-end align-items-end h-100">
+                <div class="col-md-8 col-lg-7 col-xl-6 ">
+                    <img src="img/undraw_remotely_2j6y.svg"
+                    class="img-fluid" alt="Phone image">
+                </div>
                 <div class="col col-md-5  ">
                     <div class="card bg-glass" style="border-radius: 1rem;">
                         <div class="row g-0">
@@ -200,8 +192,60 @@ if (isset($_POST['submit'])) {
                     </div>
                 </div>
             </div>
+        </div> -->
+     
+<section >
+  <div class="container py-5 h-100">
+    <div class="row gx-lg-5 align-items-center mb-5">
+      <div class="col-md-8 col-lg-7 col-xl-6">
+        <img src="img/undraw_remotely_2j6y.svg"
+          class="img-fluid" alt="Phone image">
+      </div>
+
+      <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+        <div class="card bg-glass">
+          <div class="card-body px-2 py-3 px-md-3">
+            <form method="POST" class="needs-validation" novalidate>
+                <div class="d-flex align-items-center mb-3 pb-1">
+                    <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                    <span class="h1 fw-bold mb-0">Logo</span>
+                </div>
+                <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Login your account here.</h5>
+                <div class="form mb-4">
+                    <label class="form-label" for="username">Username</label>
+                    <input type="text" id="username" name="username" class="form-control form-control-lg" required>
+                    <div class="invalid-feedback">Please Enter Username.</div>
+                </div>
+
+                <div class="form mb-4">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" name="password" id="password" class="form-control form-control-lg" required>
+                    <div class="invalid-feedback">Please Enter Password.</div>
+
+                </div>
+                <div class="form-check mb-4">
+                    <input class="form-check-input me-2" type="checkbox" value="yes" name="isTeacher" id="isTeacher" />
+                    <label class="form-check-label" for="isTeacher">
+                        Are you a teacher?
+                    </label>
+                </div>
+
+                <div class="pt-1 mb-4">
+                    <button class="btn btn-lg btn-block text-white" type="submit" name="submit" style="background-color: #6C63FF; ">Login</button>
+                </div>
+
+
+                <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="registration.php" style="color: #393f81;">Register Here.</a></p>
+
+            </form>
+              
+          </div>
         </div>
-       
+      </div>
+    </div>
+  </div>
+</section>
+
     </div>
 
 

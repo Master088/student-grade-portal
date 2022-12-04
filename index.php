@@ -38,7 +38,25 @@ if (isset($_SESSION['isLogin'])) {
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
 <style>
+* {
+        box-sizing: border-box;
+    }
 
+    html,
+    body {
+        padding: 0;
+        margin: 0;
+        font-family: Poppins;
+        font-weight: 300;
+        height: 100%;
+        font-size: 1em;
+        overflow-x: hidden;
+        overflow-y: visible;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: #F8FAFB;
+    }
 </style>
 
 <link rel="stylesheet" href="style.css">

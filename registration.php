@@ -107,6 +107,19 @@ if (isset($_POST['submit'])) {
 <style>
     body {
         font-family: Poppins;
+        padding: 0;
+        margin: 0;
+      
+        font-weight: 300;
+        /* background-image: url("img/background.png"); */
+        height: 100%;
+        font-size: 1em;
+        overflow-x: hidden;
+        overflow-y: visible;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: #F8FAFB;
     }
     .form-label{
         color:grey;
@@ -118,32 +131,11 @@ if (isset($_POST['submit'])) {
         justify-content: start;
         display: flex;
     }
-    .background-radial-gradient {
-      background-color: hsl(218, 41%, 15%);
-      background-image: radial-gradient(650px circle at 0% 0%,
-          hsl(218, 41%, 35%) 15%,
-          hsl(218, 41%, 30%) 35%,
-          hsl(218, 41%, 20%) 75%,
-          hsl(218, 41%, 19%) 80%,
-          transparent 100%),
-        radial-gradient(1250px circle at 100% 100%,
-          hsl(218, 41%, 45%) 15%,
-          hsl(218, 41%, 30%) 35%,
-          hsl(218, 41%, 20%) 75%,
-          hsl(218, 41%, 19%) 80%,
-          transparent 100%);
-          height: 500px;
-    }
-    .img-card{
-        
-        justify-content: start;
-        display: flex;
-       
-    }
+    
 </style>
 <body>
 
-    <div>
+    <!-- <div>
         <section class="text-center">
 
             <div class="p-5 background-radial-gradient"></div>
@@ -165,7 +157,7 @@ if (isset($_POST['submit'])) {
                                 <div class="img-card">
                                     <div class="form form-control">
                                         <img src="profile.png" class="border" alt="Profile" id="output" width="250" height="250">
-                                        <!-- <input accept="image/*" onchange="loadFile(event)" type="file" name="file" required> -->
+                                        
                                         <label class="form-label" for="upload">Upload Image</label>
                                         <input type="file" class="form-control" id="upload" accept="image/*" onchange="loadFile(event)" name="file" required/>
                                     </div>
@@ -225,7 +217,7 @@ if (isset($_POST['submit'])) {
                                     </div>
                                 </div>
 
-                                <!-- Submit button -->
+                             
                                 <div class="btn-submit">
                                     <button type="submit" name="submit" class="btn btn-primary mb-5">
                                         <i class="bi bi-send-plus-fill"></i> Register
@@ -244,7 +236,98 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
         </section>
+    </div> -->
+    <section class="vh-100 gradient-custom">
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
+            <form method="POST" action="" enctype="multipart/form-data">
+                <div class="img-card">
+                    <div class="form form-control">
+                        <img src="profile.png" class="border" alt="Profile" id="output" width="250" height="250">
+                        
+                        <label class="form-label" for="upload">Upload Image</label>
+                        <input type="file" class="form-control" id="upload" accept="image/*" onchange="loadFile(event)" name="file" required/>
+                    </div>
+                </div>
+                <div class=" mb-4">
+                    <div class="form">
+                        <label class="form-label" for="lrn">LRN</label>
+                        <input type="text" name="lrn" id="lrn" class="form-control" />
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="form">
+                            <label class="form-label" for="fullname">Fullname</label>
+                            <input type="text" id="fullname" name="fullname" class="form-control" />
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label class="form-label" for="gender">Gender</label>
+                        <select class="form-select" name="gender" required aria-label="Default select example">
+                            <option selected>Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form mb-4 ">
+                    <label class="form-label" for="guardian_name">Guardian Name</label>
+                    <input type="text" name="guardian_name" id="guardian_name" class="form-control" />
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="form">
+                            <label class="form-label" for="username">Username</label>
+                            <input type="text" id="username" name="username" class="form-control" />
+
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="form">
+                            <label class="form-label" for="pasword">Password</label>
+                            <input type="password" id="pasword" name="password" class="form-control" />
+
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="form">
+                        <label class="form-label" for="confirm_password">Confirm Password</label>
+                        <input type="password" id="confirm_password" name="confirm_password" class="form-control" />
+
+                    </div>
+                </div>
+
+                
+                <div class="btn-submit">
+                    <button type="submit" name="submit" class="btn btn-primary mb-5">
+                        <i class="bi bi-send-plus-fill"></i> Register
+                    </button>
+                    <button type="reset" class="btn btn-danger mb-5" style="margin-left: 1vw;">
+                        <i class="bi bi-x-octagon-fill"></i> Reset
+                    </button>
+                    
+                </div> 
+                <p class="mb-2 pb-lg-2" style="color: #393f81; justify-content: start; display: flex;">Already have an account? <a href="login.php" style="color: #393f81;">Login Here.</a></p>
+
+
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+</section>
     <script>
         var loadFile = function(event) {
             var image = document.getElementById('output');
