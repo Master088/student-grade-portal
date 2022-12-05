@@ -117,7 +117,7 @@ if (isset($_SESSION['isLogin'])) {
                 </div>
             </div>
             <div class="col-md-5 col-sm-12 ">
-                <div class="row  d-flex justify-content-around">
+                <div class="row  d-flex justify-content-around" style="margin-right: -10vw">
                     <div class="card col-md-5  ">
                         <?php
 
