@@ -67,7 +67,7 @@ if (isset($_POST['submit1'])) {
         summative='$summative',
         exam='$exam',
         bonus='$bonus',
-        bonus='1st Quarter',
+        quarter='1st Quarter',
         total='$total'
         ";
     }

@@ -1,14 +1,14 @@
 <?php
 session_start();
-
 include 'mysql_connect.php';
- // prevent unauthenticated user and not student user to access this page
+
+// prevent unauthenticated user and not student user to access this page
 if (isset($_SESSION['isLogin'])) {
     if (!$_SESSION['isLogin']) {
         header('Location:login.php');
     } else {
         if ($_SESSION['account_type'] == "teacher") {
-            header('Location:index.php');
+            header('Location:studentDashboard.php');
         }
     }
 } else {
@@ -17,6 +17,19 @@ if (isset($_SESSION['isLogin'])) {
     echo '</script>';
     header('Location:login.php');
 }
+
+// $subject_id = "";
+// if (isset($_GET['subject_id'])) {
+//     $subject_id = $_GET['subject_id'];
+//     $sql = "SELECT * FROM  subject WHERE subject_id=" . $subject_id;
+//     $res = mysqli_query($conn, $sql);
+//     if (mysqli_num_rows($res) > 0) {
+
+//         $subject_details = mysqli_fetch_assoc($res);
+//     }
+// }
+
+
 
 ?>
 
@@ -38,8 +51,9 @@ if (isset($_SESSION['isLogin'])) {
 <script src="https://kit.fontawesome.com/a81368914c.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
+<!-- <link rel="stylesheet" href="style.css"> -->
 <style>
- * {
+    * {
         box-sizing: border-box;
     }
 
@@ -49,6 +63,7 @@ if (isset($_SESSION['isLogin'])) {
         margin: 0;
         font-family: Poppins;
         font-weight: 300;
+        /* background-image: url("img/background.png"); */
         height: 100%;
         font-size: 1em;
         overflow-x: hidden;
@@ -56,74 +71,124 @@ if (isset($_SESSION['isLogin'])) {
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-        background-color: #F8FAFB;
+        /* background-color: #F8FAFB; */
     }
 </style>
-<link rel="stylesheet" href="style.css">
 
-<body  >
+<body>
+
     <nav class="navbar navbar-light bg-dark">
-        <a class="navbar-brand text-white">Student Record System</a>
+        <a href="index.php" class="navbar-brand text-white">Student Record System</a>
         <form action="logout.php" method="POST">
             <button type="submit" name='logout' class="btn btn-danger  "> <i class="bi bi-person-dash-fill"></i> Logout</button>
         </form>
     </nav>
-    <div class=" mt-3">
-        <h2 class="text-center">My Subject</h2>
-    </div>
-    <div class="container-fluid" style="margin-top: 8vh">
-        <div class="row row-cols-1 row-cols-md-4">
 
-            <?php
-            $sql = "SELECT *
-                FROM subject
-                INNER JOIN teacher ON subject.teacher_id=teacher.teacher_id 
-                WHERE subject.teacher_id = " . 1;
-
-            $res = mysqli_query($conn, $sql);
-            if (mysqli_num_rows($res) > 0) {
-                while ($row = mysqli_fetch_assoc($res)) { ?>
-                    <div class="col mb-4">
-                        <div class="card h-100">
-                            <img src="img/2.png" class="card-img-top" alt="..." style="height: 25vh; object-fit: cover;">
-                            <div class="card-body">
-                                <b>
-                                    <p class="card-title"> <?php echo $row['subject_title']; ?></p>
-                                </b>
-
-
-                                <!-- <p class="card-text">Teacher <?php echo $row['fullname']; ?></p> -->
-                                <p class="card-text"></i> <?php echo $row['grade_lvl']; ?></b> </p>
-                                <!-- <a href="location_details.php" class="btn btn-primary">Book Now</a> -->
-                                <a href="<?php echo 'student_table.php?subject_id=' . $row['subject_id'] ?>" class="btn btn-primary">View Details</a>
+    <div class="">
+        <h2 class="text-center">Student</h2>
+        <div class="container-fluid mt-5 px-3 py-3">
+            <div class="row">
+                <div class="card mb-3 border-0 ml-2  col-md-6">
+                    <?php
+                    $student_id = $_SESSION['id'];
+                    $query =  "SELECT *
+                    FROM student 
+                    WHERE id = " . $student_id;
+                    $res = mysqli_query($conn, $query);
+                    $studentDetails = mysqli_fetch_assoc($res);
+                    ?>
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="<?php echo $studentDetails['profile']; ?>" class="card-img border" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body ml-lg-5">
+                                <h1 class="card-title"><?php echo $studentDetails['fullname']; ?></h1>
+                                <p class="card-text">LRN: <?php echo $studentDetails['lrn']; ?></p>
+                                <p class="card-text">Guardian Name: <?php echo $studentDetails['guardian_name']; ?></p>
+                                <p class="card-text">Gender: <?php echo $studentDetails['gender']; ?></p>
 
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-12 ">
+                    <div class="row  d-flex justify-content-around" style="margin-right: -10vw">
+                        <div class="card col-md-5  ">
 
+                            <div class="d-flex">
+                                <div class="form-group  ">
+                                    <div class="d-flex">
+                                        <!-- <h4 class=" mx-2">School Year </h4> <button class="btn btn-primary rounded-circle btn-sm" data-bs-toggle="modal" data-bs-target="#addClass"><i class="bi bi-plus-circle-fill"></i></button> -->
+                                        <h4 class=" mx-2">School Year </h4>
+                                    </div>
+                                    <div class=" mt-2 ">
+                                        <select class=" form-controls" onchange="getStudent()" name="school_year" id="school_year" required aria-label="Default select example">
+                                            <?php
 
+                                            $sql = "SELECT DISTINCT   class.class_id,class.school_year  FROM class_member
+                                            INNER JOIN student ON class_member.student_id=student.id 
+                                            INNER JOIN class ON class_member.class_id=class.class_id 
+                                            WHERE student_id=" . $_SESSION['id'];
 
+                                            $res = mysqli_query($conn, $sql);
+                                            if (mysqli_num_rows($res) > 0) {
+                                                while ($row = mysqli_fetch_assoc($res)) {  ?>
 
+                                                    <option value="<?php echo $row['class_id']; ?>"><?php echo $row['school_year']; ?></option>
+                                            <?php
+                                                }
+                                            }
+                                            ?>
 
-
-
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card col-md-5  ">
+                            <button class="btn btn-primary"> Download</button>
                         </div>
                     </div>
 
-            <?php
-                }
-            }
-            ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div id="grade_table" class="text-dark mx-2"></div>
         </div>
     </div>
 
-    
 
 
+    <script>
+        $(document).ready(function() {
+            getGradeTable()
+        });
 
-    
+        function getGradeTable() {
+            let school_year = $("#school_year").val()
+            console.log("here", school_year)
+            $.ajax({
+                url: "get_student_grade.php",
+                method: "GET",
+                data: {
+                    school_year
+                },
+                success: function(data) {
+                    console.log(data);
+                    data = $.parseJSON(data);
+                    if (data.status == "success") {
+                        $("#grade_table").html(data.html);
+                    }
+                },
+            });
+
+
+        }
+    </script>
+
 </body>
-
-<script>
-   
-</script>
 
 </html>
