@@ -166,27 +166,29 @@ if (isset($_SESSION['isLogin'])) {
                         <form method="POST">
                             <div class="form-group">
                                 <label for="prerogative">Prerogative</label>
-                                <input type="text" class="form-control" id="prerogative" name="prerogative">
+                                <input type="number" class="form-control" id="prerogative" name="prerogative">
 
                             </div>
                             <div class="form-group">
                                 <label for="summative">Summative</label>
-                                <input type="text" class="form-control" id="summative" name="summative">
+                                <input type="number" class="form-control" id="summative" name="summative">
                             </div>
                             <div class="form-group">
                                 <label for="exam">Exam</label>
-                                <input type="text" class="form-control" id="exam" name="exam">
+                                <input type="number" class="form-control" id="exam" name="exam">
                             </div>
                             <div class="form-group">
                                 <label for="bonus">Bonus</label>
-                                <input type="text" class="form-control" id="bonus" name="bonus">
+                                <input type="number" class="form-control" id="bonus" name="bonus">
                             </div>
                             <div class="form-group">
-                                <label for="total">Total</label>
-                                <input type="text" class="form-control" id="total" name="total" disabled>
+                                <!-- <label for="total">Total</label> -->
+                                <!-- <input type="text" class="form-control" id="total" name="total" disabled> -->
+                                <p class="card-text">Total: <span id="result3"></span></p>
                             </div>
+                            
+                            <button type="button" id="submit"  onclick="getData()" class="btn btn-warning text-white"><span><i class="bi bi-plus-circle-fill"></i></span> Add</button>
 
-                            <button type="submit" class="btn btn-warning text-white"><span><i class="bi bi-plus-circle-fill"></i></span> Add</button>
                         </form>
                     </div>
                 </div>
@@ -273,7 +275,14 @@ if (isset($_SESSION['isLogin'])) {
                                 <label for="exam">Exam</label>
                                 <input type="text" class="form-control" id="exam" name="exam">
                             </div>
-                            
+                            <div class="form-group">
+                                <label for="bonus">Bonus</label>
+                                <input type="text" class="form-control" id="bonus" name="bonus">
+                            </div>
+                            <div class="form-group">
+                                <label for="total">Total</label>
+                                <input type="text" class="form-control" id="total" name="total" disabled>
+                            </div>
 
                             <button type="submit" class="btn btn-warning text-white"><span><i class="bi bi-plus-circle-fill"></i></span> Add</button>
                         </form>
@@ -282,6 +291,7 @@ if (isset($_SESSION['isLogin'])) {
             </div>
         </div>
     </div>
+    
 
 
 
@@ -303,6 +313,33 @@ if (isset($_SESSION['isLogin'])) {
         image.src = URL.createObjectURL(event.target.files[0]);
         image.setAttribute("class", "out");
     }
+</script>
+
+<script>
+        $(document).ready(function() {
+        getData()
+       
+    });
+
+    function getData() {
+
+        
+        let pre = $("#prerogative").val();
+        let summa = $("#summative").val();
+        let exam = $("#exam").val();
+        let bonus = $("#bonus").val();
+       
+        let result10 = 0;
+        result10 = (+pre) + (+summa) + (+exam) + (+bonus);
+
+        let result3 = document.getElementById("result3");
+            result3.innerText = result10;
+            
+        
+
+
+    }
+
 </script>
 
 </html>

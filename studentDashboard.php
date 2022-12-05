@@ -30,42 +30,45 @@ if (isset($_SESSION['isLogin'])) {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
-<script src="https://kit.fontawesome.com/a81368914c.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
 <style>
- 
+ * {
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        padding: 0;
+        margin: 0;
+        font-family: Poppins;
+        font-weight: 300;
+        height: 100%;
+        font-size: 1em;
+        overflow-x: hidden;
+        overflow-y: visible;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: #F8FAFB;
+    }
 </style>
 <link rel="stylesheet" href="style.css">
 
 <body  >
-<nav class="navbar navbar-expand-lg navbar-light  px-4 header  bg-primary">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <h3 class="text-white">Student Record System</h3>
-        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent ">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0  ">
-                <li>
-
-                    <a class=" text-white ">
-
-                        <form action="logout.php" method="POST">
-                            <button type="submit" name='logout' class="btn btn-danger  ">Logout</button>
-
-                        </form>
-                    </a>
-                </li>
-            </ul>
-            </li>
-            </ul>
-        </div>
+    <nav class="navbar navbar-light bg-dark">
+        <a class="navbar-brand text-white">Student Record System</a>
+        <form action="logout.php" method="POST">
+            <button type="submit" name='logout' class="btn btn-danger  "> <i class="bi bi-person-dash-fill"></i> Logout</button>
+        </form>
     </nav>
+    
 
     
 
