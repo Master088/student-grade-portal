@@ -131,6 +131,29 @@ if (isset($_POST['submit'])) {
         justify-content: start;
         display: flex;
     }
+    .file-upload{
+    display: inline-block;
+    padding: 0 10px;
+    height: 36px;
+    line-height: 36px;
+    color: white;
+    background-color: blueviolet;
+    cursor: pointer;
+    border-radius: 7px;
+}
+.file-upload input[type="file"]{
+  display: none;
+  
+}
+label{
+    cursor: pointer;
+}
+.profile-img {
+    border-radius: 50%;
+}
+#output{
+border-radius: 50%;
+}
     
 </style>
 <body>
@@ -237,7 +260,7 @@ if (isset($_POST['submit'])) {
             </div>
         </section>
     </div> -->
-    <section class="vh-100 gradient-custom">
+    <!-- <section class="vh-100 gradient-custom">
   <div class="container py-5 h-100">
     <div class="row justify-content-center align-items-center h-100">
       <div class="col-12 col-lg-9 col-xl-7">
@@ -327,7 +350,126 @@ if (isset($_POST['submit'])) {
       </div>
     </div>
   </div>
-</section>
+</section> -->
+<div class="container-fluid">
+        <div class="row">
+            <div class=" col-6 pt-5 text-center d-none d-lg-block">
+                <div class="image_section img-responsive pt-5 px-5 ">
+                    <div class="px-5">
+                    <img src="img/logo-registration.svg" alt="" style="width: 32rem;" class="pt-5  img-fluid  ">
+                    </div>
+                </div>
+            </div>
+            <div class="col pt-3 mb-4">
+                <div class="card shadow p-3 card-registration" style="border-radius: 15px;">
+                    <div class="card-body">
+                     <h3 class="text-center">Registration Form</h3>
+                     <form method="POST" action="" enctype="multipart/form-data">
+                        <!-- <div class="img-card">
+                            <div class="form form-control"> -->
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-12 text-center">   
+                                    <img src="img/profile_icon.svg" class="border profile-img " alt="Profile" id="output" width="150" height="150">
+                                
+                                <!-- <label class="form-label" for="upload">Upload Image</label> -->
+                           
+                                    <div class="box pt-3 px-3">
+                                        <div class="file-upload "> 
+                                            <input type="file" class="form-control" id="upload" accept="image/*" onchange="loadFile(event)" name="file" required/>
+                                            <label for="upload">Upload Image</label>
+                                            <!-- choose file -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" col-md-8 col-sm-12 mb-4 pt-5">
+                                    <!-- <div class="form"> -->
+                                        <label class="form-label" for="lrn">LRN</label>
+                                        <input type="text" name="lrn" id="lrn" class="form-control" />
+                
+                                    <!-- </div> -->
+                                </div>
+                            </div>
+                            <!-- </div> -->
+                            <!-- <div class="file-upload "> 
+                                <input type="file" class="form-control" id="upload" accept="image/*" onchange="loadFile(event)" name="file" required/>
+                                <label for="upload">choose file</label>
+                            </div> -->
+                        <!-- </div> -->
+                        
+                       
+                        <div class="row pt-2">
+                            <div class="col-md-6 mb-3">
+                                <div class="form">
+                                    <label class="form-label" for="fullname">Fullname</label>
+                                    <input type="text" id="fullname" name="fullname" class="form-control" />
+        
+                                </div>
+        
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="gender">Gender</label>
+                                <select class="form-select" name="gender" required aria-label="Default select example">
+                                    <option selected>Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                    <div class="row">
+                            <div class="col-md-6">
+                                <div class="form mb-3 ">
+                                    <label class="form-label" for="guardian_name">Guardian Name</label>
+                                    <input type="text" name="guardian_name" id="guardian_name" class="form-control" />
+                
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form">
+                                    <label class="form-label" for="username">Username</label>
+                                    <input type="text" id="username" name="username" class="form-control" />
+        
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="form">
+                                    <label class="form-label" for="pasword">Password</label>
+                                    <input type="password" id="pasword" name="password" class="form-control" />
+        
+                                </div>
+                            </div>
+                       
+                        <div class="col-md-6 mb-3">
+                            <div class="form">
+                                <label class="form-label" for="confirm_password">Confirm Password</label>
+                                <input type="password" id="confirm_password" name="confirm_password" class="form-control" />
+        
+                            </div>
+                        </div>
+                    </div>
+        
+                        
+                        <div class="btn-submit">
+                            <button type="submit" name="submit" class="btn btn-primary mb-3">
+                                <i class="bi bi-send-plus-fill"></i> Register
+                            </button>
+                            <button type="reset" class="btn btn-danger mb-3" style="margin-left: 1vw;">
+                                <i class="bi bi-x-octagon-fill"></i> Reset
+                            </button>
+                            
+                        </div> 
+                        <p class="mb-2 pb-lg-2" style="color: #393f81; justify-content: start; display: flex;">Already have an account? <a href="login.php" style="color: #393f81;">Login Here.</a></p>
+        
+        
+                    </form>
+                    </div>
+                  </div>
+            </div>
+        </div>
+
+    </div>
     <script>
         var loadFile = function(event) {
             var image = document.getElementById('output');
