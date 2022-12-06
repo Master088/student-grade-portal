@@ -621,7 +621,7 @@ if (isset($_POST['submit4'])) {
                             </div>
                             <div class="form-group">
                                 <label for="exam1">Exam(50%)</label>
-                                <input type="number" class="form-control text-center" onchange="onChange4()" id="exam4" name="exam4" value="<?php echo $fourthQuarter['exam'] ?>">
+                                <input type="number" class="form-control text-center" onchange="onChange4()" value="<?php echo $fourthQuarter['exam'] ?>" id="exam4" name="exam4">
                             </div>
                             <div class="form-group">
                                 <label for="bonus1">Bonus</label>
@@ -705,7 +705,7 @@ if (isset($_POST['submit4'])) {
             summa = 25.00;
         }
         if (exam > 50) {
-            pre = 50.00;
+            exam = 50.00;
         }
 
         let result = pre + summa + exam + bonus;
@@ -734,7 +734,7 @@ if (isset($_POST['submit4'])) {
             summa = 25.00;
         }
         if (exam > 50) {
-            pre = 50.00;
+            exam = 50.00;
         }
 
         let result = pre + summa + exam + bonus;
@@ -763,7 +763,7 @@ if (isset($_POST['submit4'])) {
             summa = 25.00;
         }
         if (exam > 50) {
-            pre = 50.00;
+            exam = 50.00;
         }
 
         let result = pre + summa + exam + bonus;
@@ -780,30 +780,30 @@ if (isset($_POST['submit4'])) {
     }
 
     function onChange4() {
-        let pre = parseFloat($("#prerogative4").val()) || 0;
-        let summa = parseFloat($("#summative4").val()) || 0;
-        let exam = parseFloat($("#exam4").val()) || 0;
-        let bonus = parseFloat($("#bonus4").val()) || 0;
+        let pre4 = parseFloat($("#prerogative4").val()) || 0;
+        let summa4 = parseFloat($("#summative4").val()) || 0;
+        let exam4 = parseFloat($("#exam4").val()) || 0;
+        let bonus4 = parseFloat($("#bonus4").val()) || 0;
 
-        if (pre > 25) {
-            pre = 25.00;
+        if (pre4 > 25) {
+            pre4 = 25.00;
         }
-        if (summa > 25) {
-            summa = 25.00;
+        if (summa4 > 25) {
+            summa4 = 25.00;
         }
-        if (exam > 50) {
-            pre = 50.00;
+        if (exam4 > 50) {
+            exam = 50.00;
         }
 
-        let result = pre + summa + exam + bonus;
+        let result = pre4 + summa4 + exam4 + bonus4;
 
         if (result > 100) {
             result = 100.0
         }
-        document.getElementById("prerogative4").value = pre;
-        document.getElementById("summative4").value = summa;
-        document.getElementById("exam4").value = exam;
-        document.getElementById("bonus4").value = bonus;
+        document.getElementById("prerogative4").value = pre4;
+        document.getElementById("summative4").value = summa4;
+        document.getElementById("exam4").value = exam4;
+        document.getElementById("bonus4").value = bonus4;
         document.getElementById("total4").value = result;
 
     }
