@@ -43,9 +43,10 @@ if (isset($_POST['submit'])) {
             echo '</script>';
             header("location:index.php");
         } else {
-            echo '<script>';
-            echo 'alert("Incorrect username or password!")';
-            echo '</script>';
+            // echo '<script>';
+            // echo 'alert("Incorrect username or password!")';
+            // echo '</script>';
+            $_SESSION['status_error'] = "error"; 
         }
     } else {
         $sql = "SELECT * FROM student
@@ -69,9 +70,10 @@ if (isset($_POST['submit'])) {
 
             header("location:studentDashboard.php");
         } else {
-            echo '<script>';
-            echo 'alert("Incorrect username or password!")';
-            echo '</script>';
+            // echo '<script>';
+            // echo 'alert("Incorrect username or password!")';
+            // echo '</script>';
+             $_SESSION['status'] = "error";
         }
     }
 }
@@ -274,5 +276,45 @@ if (isset($_POST['submit'])) {
         });
         })();
     </script>
+    <script src="js/sweetalert2.js"></script>
+    <?php
+        if(isset($_SESSION['status_error']) && $_SESSION['status_error'] != ''){
+            ?>
+            <script>
+                Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+            
+                })
+
+            </script>
+            <?php
+            unset($_SESSION['status_error']);
+        }
+        if(isset($_SESSION['status']) && $_SESSION['status'] != ''){
+            ?>
+            <script>
+                const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+                })
+                Toast.fire({
+                icon: 'error',
+                title: 'Login Field!'
+                })
+
+            </script>
+            <?php
+            unset($_SESSION['status']);
+        }
+    ?>
 
 </html>

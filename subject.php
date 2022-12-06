@@ -40,9 +40,10 @@ if (isset($_POST['add_class'])) {
     $sql = "SELECT * FROM  class where subject_id='$subject_id' AND school_year='$school_year'";
     $res = mysqli_query($conn, $sql);
     if (mysqli_num_rows($res) > 0) {
-        echo '<script>';
-        echo "alert('Already have a class for this school year!(change this later)');";
-        echo '</script>';
+        // echo '<script>';
+        // echo "alert('Already have a class for this school year!(change this later)');";
+        // echo '</script>';
+        $_SESSION['status'] = "error";
     } else {
         $sql = "INSERT INTO class 
         SET 
@@ -53,9 +54,10 @@ if (isset($_POST['add_class'])) {
         ";
 
         if (mysqli_query($conn, $sql)) {
-            echo '<script>';
-            echo "alert('Add Sucessfully!');";
-            echo '</script>';
+            // echo '<script>';
+            // echo "alert('Add Sucessfully!');";
+            // echo '</script>';
+            $_SESSION['status_success'] = "success";
             header("Refresh:1; url=subject.php?subject_id=" . $subject_id, true, 1);
         } else {
             echo mysqli_error($conn);
@@ -107,6 +109,18 @@ if (isset($_POST['add_class'])) {
         background-repeat: no-repeat;
         background-size: cover;
         background-color: #F8FAFB;
+    }
+    .card {
+        /*float: left;*/
+        max-height: 500px;
+        padding: .75rem;
+        margin-bottom: 2rem;
+        border: 0;
+        flex-basis: 33.333%;
+        flex-grow: 0;
+        flex-shrink: 0;
+        display: flex;
+        overflow-x: scroll;
     }
 </style>
 
@@ -175,8 +189,8 @@ if (isset($_POST['add_class'])) {
 
     </div>
     <div class="container mt-5" >
+        <h2 class="text-center">Attedance</h2>
         <div class="card card-body">
-            <h2 class="text-center">Attedance</h2>
             <div id="attendance_table" class="text-dark mx-2"></div>
         </div>
     </div>
@@ -196,13 +210,14 @@ if (isset($_POST['add_class'])) {
 
                     <!-- Modal body -->
                     <div class="modal-body">
+                         <p id='class_validate_message' class="text-danger"></p>
 
                         <div class="row">
                             <div class="col-md-12 py-1">
                                 <div class="form-group row">
                                     <label class="" for="date_from">Date from:</label>
                                     <div class=" mt-2">
-                                        <select class="form-select" name="date_from" aria-label="Default select example" required>
+                                        <select class="form-select" name="date_from" id="date_from" aria-label="Default select example" required>
                                             <option selected disabled>Please Select year</option>
                                             <?php
                                             for ($i = date('Y'); $i > 1950; $i--) {
@@ -218,7 +233,7 @@ if (isset($_POST['add_class'])) {
                                 <div class="form-group row">
                                     <label class=" " for="date_to">Date to:</label>
                                     <div class=" mt-2">
-                                        <select class=" form-select" name="date_to" aria-label="Default select example" required>
+                                        <select class=" form-select" name="date_to" id="date_to" aria-label="Default select example" required>
                                             <option selected disabled>Please Select year</option>
                                             <?php
                                             for ($i = date('Y') + 1; $i > 1950; $i--) {
@@ -247,7 +262,7 @@ if (isset($_POST['add_class'])) {
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" name="add_class" >Submit</button>
+                        <button type="submit" class="btn btn-primary" name="add_class" onclick="validate();">Submit</button>
                     </div>
 
                 </div>
@@ -358,6 +373,7 @@ if (isset($_POST['add_class'])) {
                         
                     </div>
                     <div class="form-group">
+                        <p id='attendance_validate_message' class="text-danger"></p>
                         <label class="" for="date">Date</label>
                         <input class=" form-control" type="date" name="date" id="date" require>
                     </div>
@@ -498,21 +514,23 @@ if (isset($_POST['add_class'])) {
         let date = $("#date").val()
 
         let absent = JSON.stringify(attendance_list)
-
-        $.ajax({
-            url: "add_attendance.php",
-            method: "POST",
-            data: {
-                class_id: school_year,
-                absent,
-                date
-            },
-            success: function(data) {
-                getAttendanceTable()
-                $("#addAttendance").modal("hide");
-            },
-        });
-
+        if(date == ""){
+             $("#attendance_validate_message").html("Please Insert Date!");
+        }else{
+            $.ajax({
+                url: "add_attendance.php",
+                method: "POST",
+                data: {
+                    class_id: school_year,
+                    absent,
+                    date
+                },
+                success: function(data) {
+                    getAttendanceTable()
+                    $("#addAttendance").modal("hide");
+                },
+            });
+        }
     }
     ///delete record
     function attendance() {
@@ -577,25 +595,71 @@ if (isset($_POST['add_class'])) {
     }
 </script>
 
- <script>
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
-        (() => {
-        'use strict';
-
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        const forms = document.querySelectorAll('.needs-validation');
-
-        // Loop over them and prevent submission
-        Array.prototype.slice.call(forms).forEach((form) => {
-            form.addEventListener('submit', (event) => {
-            if (!form.checkValidity()) {
-                event.preventDefault();
-                event.stopPropagation();
+<script>
+        // add class validation
+        function validate(){
+          
+            let dateFrom = document.getElementById("date_from");
+            let txtValue1 = dateFrom.value;
+            let dateTo = document.getElementById("date_to");
+            let txtValue2 = dateTo.value;
+            let sched = document.getElementById("schedule");
+            let txtValue3 = sched.value;
+            // alert(txtValue3);
+            if(txtValue1 == "" || txtValue2 == "" || txtValue3 == ""){
+                $("#class_validate_message").html("All The Field are Required!");
             }
-            form.classList.add('was-validated');
-            }, false);
-        });
-        })();
-    </script>
+        }
+</script>
+<script src="js/sweetalert2.js"></script>
+    <?php
+        if(isset($_SESSION['status_success']) ){
+            ?>
+            <script>
+                const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+                })
+                Toast.fire({
+                icon: 'success',
+                title: 'Record Successfuly Added!'
+                })
+
+            </script>
+            <?php
+            unset($_SESSION['status_success']);
+        }
+        if(isset($_SESSION['status']) && $_SESSION['status'] != ''){
+            ?>
+            <script>
+                const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+                })
+                Toast.fire({
+                icon: 'error',
+                title: 'Already have a class for this school year!(change this later)'
+                })
+
+            </script>
+            <?php
+            unset($_SESSION['status']);
+        }
+        
+    ?>
 
 </html>
