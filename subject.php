@@ -129,7 +129,7 @@ if (isset($_POST['add_class'])) {
 <body>
 
     <nav class="navbar navbar-light bg-dark">
-        <a href="index.php" class="navbar-brand text-white">Student Record System</a>
+        <a href="index.php" class="navbar-brand text-white">Classroom Management System</a>
         <form action="logout.php" method="POST">
             <button type="submit" name='logout' class="btn btn-danger  "> <i class="bi bi-person-dash-fill"></i> Logout</button>
         </form>
