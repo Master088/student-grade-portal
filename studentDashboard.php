@@ -123,10 +123,10 @@ if (isset($_SESSION['isLogin'])) {
                                         <h4 class=" mx-2">School Year </h4>
                                     </div>
                                     <div class=" mt-2 ">
-                                        <select class=" form-controls" onchange="getStudent()" name="school_year" id="school_year" required aria-label="Default select example">
+                                        <select class=" form-controls" onchange="getGradeTable()" name="school_year" id="school_year" required aria-label="Default select example">
                                             <?php
 
-                                            $sql = "SELECT DISTINCT   class.class_id,class.school_year  FROM class_member
+                                            $sql = "SELECT DISTINCT class.school_year  FROM class_member
                                             INNER JOIN student ON class_member.student_id=student.id 
                                             INNER JOIN class ON class_member.class_id=class.class_id 
                                             WHERE student_id=" . $_SESSION['id'];

@@ -110,6 +110,7 @@ if (isset($_POST['add_class'])) {
         background-size: cover;
         background-color: #F8FAFB;
     }
+
     .card {
         /*float: left;*/
         max-height: 500px;
@@ -149,7 +150,7 @@ if (isset($_POST['add_class'])) {
                             <!-- <h4 class=" mx-2">School Year </h4> <button class="btn btn-primary rounded-circle btn-sm" data-bs-toggle="modal" data-bs-target="#addClass"><i class="bi bi-plus-circle-fill"></i></button> -->
                             <h4 class=" mx-2">School Year </h4>
                             <button class="btn btn-info " data-bs-toggle="modal" data-bs-target="#addClass"><i class="bi bi-plus-circle-fill"></i> Add School Year</button>
-                            
+
                         </div>
                         <div class=" mt-2 ">
                             <select class=" form-select" onchange="getStudent()" name="school_year" id="school_year" required aria-label="Default select example">
@@ -188,7 +189,7 @@ if (isset($_POST['add_class'])) {
         <div id="table" class="text-dark mx-2"></div>
 
     </div>
-    <div class="container mt-5" >
+    <div class="container mt-5">
         <h2 class="text-center">Attedance</h2>
         <div class="card card-body">
             <div id="attendance_table" class="text-dark mx-2"></div>
@@ -199,7 +200,7 @@ if (isset($_POST['add_class'])) {
     <!-- add class -->
     <div class="modal fade" id="addClass">
         <div class="modal-dialog">
-            <form method="POST" action="" >
+            <form method="POST" action="">
                 <div class="modal-content">
 
                     <!-- Modal Header -->
@@ -210,7 +211,7 @@ if (isset($_POST['add_class'])) {
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                         <p id='class_validate_message' class="text-danger"></p>
+                        <p id='class_validate_message' class="text-danger"></p>
 
                         <div class="row">
                             <div class="col-md-12 py-1">
@@ -272,7 +273,7 @@ if (isset($_POST['add_class'])) {
     <!-- add student -->
     <div class="modal fade" id="addStudent">
         <div class="modal-dialog">
-            
+
             <div class="modal-content">
 
                 <!-- Modal Header -->
@@ -358,45 +359,45 @@ if (isset($_POST['add_class'])) {
                     <div class="row py-2">
                         <div class="card-body">
                             <div class="form-check ">
-                            <input class="form-check-input me-2" type="checkbox" value="yes" name="isTeacher" id="isTeacher" checked disabled />
-                            <label class="form-check-label" for="isTeacher">
-                                Check if (Present)
-                            </label>
+                                <input class="form-check-input me-2" type="checkbox" value="yes" name="isTeacher" id="isTeacher" checked disabled />
+                                <label class="form-check-label" for="isTeacher">
+                                    Check if (Present)
+                                </label>
+                            </div>
+                            <div class="form-check ">
+                                <input class="form-check-input me-2" type="checkbox" value="yes" name="isTeacher" id="isTeacher" disabled />
+                                <label class="form-check-label" for="isTeacher">
+                                    Un-Check if (Absent)
+                                </label>
+                            </div>
                         </div>
-                        <div class="form-check ">
-                            <input class="form-check-input me-2" type="checkbox" value="yes" name="isTeacher" id="isTeacher" disabled />
-                            <label class="form-check-label" for="isTeacher">
-                                Un-Check if (Absent)
-                            </label>
-                        </div>
-                        </div>                        
-                        
+
                     </div>
                     <div class="form-group">
                         <p id='attendance_validate_message' class="text-danger"></p>
                         <label class="" for="date">Date</label>
                         <input class=" form-control" type="date" name="date" id="date" require>
                     </div>
-                    
+
                     <div class="row">
-                        <div class="col" >
-                             <label class="" for="attendance_list">Student Names</label>
-                            <div class="row" id="attendance_list" >
+                        <div class="col">
+                            <label class="" for="attendance_list">Student Names</label>
+                            <div class="row" id="attendance_list">
+                            </div>
                         </div>
+
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" name="add_attendance" onclick="addAttendance()">Add Attendance</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
 
                 </div>
 
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" name="add_attendance" onclick="addAttendance()">Add Attendance</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-
             </div>
-
         </div>
-    </div>
 </body>
 
 
@@ -430,35 +431,35 @@ if (isset($_POST['add_class'])) {
         let lrn = $("#lrn").val();
         let school_year = $("#school_year").val()
 
-        
-        if(lrn == ""){
+
+        if (lrn == "") {
             $("#message").html("Please fill in the Blank!");
-        }else{
+        } else {
             $.ajax({
-            url: "add_student.php",
-            method: "post",
-            data: {
-                lrn,
-                class_id: school_year
-            },
-            success: function(data) {
-                console.log("here", data)
-                data = $.parseJSON(data);
-                if (data.status == "success") {
-                    getStudent()
-                    $('#addStudent').modal('toggle');
-                } else {
-                    alert(data.message)
-                }
-            },
-        });
+                url: "add_student.php",
+                method: "post",
+                data: {
+                    lrn,
+                    class_id: school_year
+                },
+                success: function(data) {
+                    console.log("here", data)
+                    data = $.parseJSON(data);
+                    if (data.status == "success") {
+                        getStudent()
+                        $('#addStudent').modal('toggle');
+                    } else {
+                        alert(data.message)
+                    }
+                },
+            });
         }
 
 
     }
 
     function getStudent() {
-
+        getAttendanceTable();
         let school_year = $("#school_year").val()
 
         $.ajax({
@@ -514,9 +515,9 @@ if (isset($_POST['add_class'])) {
         let date = $("#date").val()
 
         let absent = JSON.stringify(attendance_list)
-        if(date == ""){
-             $("#attendance_validate_message").html("Please Insert Date!");
-        }else{
+        if (date == "") {
+            $("#attendance_validate_message").html("Please Insert Date!");
+        } else {
             $.ajax({
                 url: "add_attendance.php",
                 method: "POST",
@@ -596,70 +597,68 @@ if (isset($_POST['add_class'])) {
 </script>
 
 <script>
-        // add class validation
-        function validate(){
-          
-            let dateFrom = document.getElementById("date_from");
-            let txtValue1 = dateFrom.value;
-            let dateTo = document.getElementById("date_to");
-            let txtValue2 = dateTo.value;
-            let sched = document.getElementById("schedule");
-            let txtValue3 = sched.value;
-            // alert(txtValue3);
-            if(txtValue1 == "" || txtValue2 == "" || txtValue3 == ""){
-                $("#class_validate_message").html("All The Field are Required!");
-            }
+    // add class validation
+    function validate() {
+
+        let dateFrom = document.getElementById("date_from");
+        let txtValue1 = dateFrom.value;
+        let dateTo = document.getElementById("date_to");
+        let txtValue2 = dateTo.value;
+        let sched = document.getElementById("schedule");
+        let txtValue3 = sched.value;
+        // alert(txtValue3);
+        if (txtValue1 == "" || txtValue2 == "" || txtValue3 == "") {
+            $("#class_validate_message").html("All The Field are Required!");
         }
+    }
 </script>
 <script src="js/sweetalert2.js"></script>
-    <?php
-        if(isset($_SESSION['status_success']) ){
-            ?>
-            <script>
-                const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-                })
-                Toast.fire({
-                icon: 'success',
-                title: 'Record Successfuly Added!'
-                })
+<?php
+if (isset($_SESSION['status_success'])) {
+?>
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+        Toast.fire({
+            icon: 'success',
+            title: 'Record Successfuly Added!'
+        })
+    </script>
+<?php
+    unset($_SESSION['status_success']);
+}
+if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
+?>
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+        Toast.fire({
+            icon: 'error',
+            title: 'Already have a class for this school year!(change this later)'
+        })
+    </script>
+<?php
+    unset($_SESSION['status']);
+}
 
-            </script>
-            <?php
-            unset($_SESSION['status_success']);
-        }
-        if(isset($_SESSION['status']) && $_SESSION['status'] != ''){
-            ?>
-            <script>
-                const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-                })
-                Toast.fire({
-                icon: 'error',
-                title: 'Already have a class for this school year!(change this later)'
-                })
-
-            </script>
-            <?php
-            unset($_SESSION['status']);
-        }
-        
-    ?>
+?>
 
 </html>
