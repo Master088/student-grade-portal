@@ -135,7 +135,7 @@ if (isset($_SESSION['isLogin'])) {
                                             if (mysqli_num_rows($res) > 0) {
                                                 while ($row = mysqli_fetch_assoc($res)) {  ?>
 
-                                                    <option value="<?php echo $row['class_id']; ?>"><?php echo $row['school_year']; ?></option>
+                                                    <option value="<?php echo $row['school_year']; ?>"><?php echo $row['school_year']; ?></option>
                                             <?php
                                                 }
                                             }

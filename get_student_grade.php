@@ -16,7 +16,7 @@ if (
     FROM class_member
     INNER JOIN student ON class_member.student_id=student.id 
     INNER JOIN class ON class_member.class_id=class.class_id 
-    WHERE student.id = " . $student_id . " AND class.class_id=" . $school_year;
+    WHERE student.id = " . $student_id . " AND class.school_year='" . $school_year . "'";
 
     $result = mysqli_query($conn, $query);
 
@@ -77,13 +77,43 @@ if (
 
 
 
+
+
+        $final = 0;
         $value .= ' <tr>
-        <td>' .   $subject['subject_title'] . '</td>
-        <td>' . $quarter1['total'] . '</td>
-        <td>' . $quarter2['total'] . '</td>
-        <td>' . $quarter3['total'] . '</td>
-        <td>' . $quarter4['total'] . '</td>
-    </tr> ';
+        <td>' .   $subject['subject_title'] . '</td>';
+        if (mysqli_num_rows($resultQuarter1) > 0) {
+            $value .=  '<td>' . $quarter1['total'] . '</td>';
+            $final += floatval($quarter1['total']);
+        } else {
+            $value .=  '<td>0</td>';
+        }
+
+        if (mysqli_num_rows($resultQuarter2) > 0) {
+            $value .=  '<td>' . $quarter2['total'] . '</td>';
+            $final += floatval($quarter2['total']);
+        } else {
+            $value .=  '<td>0</td>';
+        }
+
+        if (mysqli_num_rows($resultQuarter3) > 0) {
+            $value .=  '<td>' . $quarter3['total'] . '</td>';
+            $final += floatval($quarter3['total']);
+        } else {
+            $value .=  '<td>0</td>';
+        }
+
+        if (mysqli_num_rows($resultQuarter4) > 0) {
+            $value .=  '<td>' . $quarter4['total'] . '</td>';
+            $final += floatval($quarter4['total']);
+        } else {
+            $value .=  '<td>0</td>';
+        }
+        if (!$final == 0) {
+            $final = $final / 4;
+        }
+        $value .=  '<td>' .  $final . '</td>';
+        $value .= '</tr> ';
     }
     $value .= '</table>';
     echo json_encode(['status' => 'success', 'html' => $value]);
