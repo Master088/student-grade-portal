@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2022 at 12:32 PM
+-- Generation Time: Dec 06, 2022 at 11:39 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -89,8 +89,21 @@ CREATE TABLE `class_grade` (
   `summative` float NOT NULL,
   `bonus` float NOT NULL,
   `exam` float NOT NULL,
-  `total` float NOT NULL
+  `total` float NOT NULL,
+  `quarter` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `class_grade`
+--
+
+INSERT INTO `class_grade` (`grade_id`, `class_id`, `student_id`, `prerogative`, `summative`, `bonus`, `exam`, `total`, `quarter`) VALUES
+(1, 4, 9, 25, 10, 111, 50, 100, '1st Quarter'),
+(5, 4, 9, 2, 0, 0, 0, 2, '2nd Quarter'),
+(6, 4, 9, 5, 1, 0, 0, 6, '3rd Quarter'),
+(9, 4, 9, 0, 0, 0, 50, 50, '4th Quarter'),
+(10, 4, 8, 1, 1, 0, 1, 3, '1st Quarter'),
+(11, 2, 9, 1, 1, 1, 1, 4, '1st Quarter');
 
 -- --------------------------------------------------------
 
@@ -111,10 +124,9 @@ CREATE TABLE `class_member` (
 INSERT INTO `class_member` (`class_member_id`, `student_id`, `class_id`) VALUES
 (13, 9, 4),
 (15, 8, 4),
-(16, 9, 2),
-(19, 8, 2),
 (20, 10, 4),
-(21, 11, 4);
+(21, 11, 4),
+(22, 9, 2);
 
 -- --------------------------------------------------------
 
@@ -138,10 +150,10 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`id`, `lrn`, `fullname`, `guardian_name`, `username`, `password`, `profile`, `gender`) VALUES
-(8, '313', 'test', 'test', 'test', '1', '', 'male'),
-(9, '1', 'Jocel', 'Jocel', 'admin', '1', 'upload/20221204041027logic.png', 'Male'),
-(10, '2', 'student1', '', 'student1', '1', '', 'Female'),
-(11, '3', 'student2', '', 'student2', '1', '', 'Female');
+(8, '313', 'test', 'test', 'test', '1', 'upload/20221204041027logic.png', 'male'),
+(9, '1', 'John Doe', 'John Doe', 'admin', '1', 'upload/20221204041027logic.png', 'Male'),
+(10, '2', 'student1', '', 'student1', '1', 'upload/20221204041027logic.png', 'Female'),
+(11, '3', 'student2', '', 'student2', '1', 'upload/20221204041027logic.png', 'Female');
 
 -- --------------------------------------------------------
 
@@ -268,13 +280,13 @@ ALTER TABLE `class_attendance`
 -- AUTO_INCREMENT for table `class_grade`
 --
 ALTER TABLE `class_grade`
-  MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `class_member`
 --
 ALTER TABLE `class_member`
-  MODIFY `class_member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `class_member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `student`
