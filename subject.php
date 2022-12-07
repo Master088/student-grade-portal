@@ -175,7 +175,7 @@ if (isset($_POST['add_class'])) {
         <div id="table" class="text-dark mx-2"></div>
     </div>
     <div class="container mt-5">
-        <h2 class="text-center">Attedance</h2>
+        <h2 class="text-center">Attendance</h2>
         <div class="card card-body">
             <!-- the attendance table will be display here using javascript -->
             <div id="attendance_table" class="text-dark mx-2"></div>

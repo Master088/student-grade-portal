@@ -89,12 +89,31 @@ if (isset($_SESSION['isLogin'])) {
                 while ($row = mysqli_fetch_assoc($res)) { ?>
                     <div class="col mb-4">
                         <div class="card h-100">
-                            <img src="img/2.png" class="card-img-top" alt="..." style="height: 25vh; object-fit: cover;">
+                            <?php
+                            if($row['subject_title'] == "Math"){?>
+                                <img src="img/math_img.png" class="card-img-top" alt="math_img" style="height: 25vh; object-fit: cover;">
+                           <?php }?>
+                           <?php
+                           if($row['subject_title'] == "English"){?>
+                                <img src="img/english_img.png" class="card-img-top" alt="english_img" style="height: 25vh; object-fit: cover;">
+                           <?php }?>
+                           <?php
+                           if($row['subject_title'] == "Science"){?>
+                                <img src="img/science_img.png" class="card-img-top" alt="science_img" style="height: 25vh; object-fit: cover;">
+                           <?php }?>
+                           <?php
+                           if($row['subject_title'] == "Filipino"){?>
+                                <img src="img/filipino_img.png" class="card-img-top" alt="filipino_img" style="height: 25vh; object-fit: cover;">
+                           <?php }?>
+                           <?php
+                           if($row['subject_title'] == "Mapeh"){?>
+                                <img src="img/mapeh_img.png" class="card-img-top" alt="mapeh_img" style="height: 25vh; object-fit: cover;">
+                           <?php }?>
                             <div class="card-body">
                                 <b>
                                     <p class="card-title"> <?php echo $row['subject_title']; ?></p>
                                 </b>
-                                <p class="card-text">Teacher <?php echo $row['fullname']; ?></p>
+                                <p class="card-text">Teacher: <?php echo $row['fullname']; ?></p>
                                 <p class="card-text"></i> <?php echo $row['grade_lvl']; ?></b> </p>
                                 <a href="<?php echo 'subject.php?subject_id=' . $row['subject_id'] ?>" class="btn btn-primary">View Details</a>
 

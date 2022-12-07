@@ -23,6 +23,13 @@ if (isset($_POST['submit'])) {
     $password = $_POST['password'];
     $_SESSION['isLogin'] = false;
     $sql = "";
+    
+    /// for student encryption
+        $ciphering = "AES-128-CTR";
+        $option = 0;
+        $encryption_iv = '1234567890123456';
+        $encryption_key = "info";
+        $encryption_pass = openssl_encrypt($password, $ciphering, $encryption_key, $option, $encryption_iv);
 
     //if the check box is click
     if (isset($_POST['isTeacher'])) {
@@ -47,12 +54,7 @@ if (isset($_POST['submit'])) {
             $_SESSION['status_error'] = "error";
         }
     } else {
-        /// for student encryption
-        $ciphering = "AES-128-CTR";
-        $option = 0;
-        $encryption_iv = '1234567890123456';
-        $encryption_key = "info";
-        $encryption_pass = openssl_encrypt($password, $ciphering, $encryption_key, $option, $encryption_iv);
+        
 
         //sql query for login student 
         $sql = "SELECT * FROM student

@@ -409,20 +409,20 @@ if (isset($_POST['submit4'])) {
                         <form method="POST">
                             <div class="form-group">
                                 <label for="prerogative1">Prerogative(25%)</label>
-                                <input type="number" class="form-control text-center" onchange="onChange1()" value="<?php echo $firstQuarter['prerogative'] ?>" id="prerogative1" name="prerogative1">
+                                <input type="number" class="form-control text-center" oninput="onChange1()" value="<?php echo $firstQuarter['prerogative'] ?>" id="prerogative1" name="prerogative1">
 
                             </div>
                             <div class="form-group">
                                 <label for="summative1">Summative(25%)</label>
-                                <input type="number" class="form-control text-center" onchange="onChange1()" value="<?php echo $firstQuarter['summative'] ?>" id="summative1" name="summative1">
+                                <input type="number" class="form-control text-center" oninput="onChange1()" value="<?php echo $firstQuarter['summative'] ?>" id="summative1" name="summative1">
                             </div>
                             <div class="form-group">
                                 <label for="exam1">Exam(50%)</label>
-                                <input type="number" class="form-control text-center" onchange="onChange1()" id="exam1" name="exam1" value="<?php echo $firstQuarter['exam'] ?>">
+                                <input type="number" class="form-control text-center" oninput="onChange1()" id="exam1" name="exam1" value="<?php echo $firstQuarter['exam'] ?>">
                             </div>
                             <div class="form-group">
                                 <label for="bonus1">Bonus</label>
-                                <input type="number" class="form-control text-center" onchange="onChange1()" id="bonus1" name="bonus1" value="<?php echo $firstQuarter['bonus'] ?>">
+                                <input type="number" class="form-control text-center" oninput="onChange1()" id="bonus1" name="bonus1" value="<?php echo $firstQuarter['bonus'] ?>">
                             </div>
                             <div class="form-group">
                                 <label for="total1">Total</label>
@@ -472,20 +472,20 @@ if (isset($_POST['submit4'])) {
                         <form method="POST">
                             <div class="form-group">
                                 <label for="prerogative1">Prerogative(25%)</label>
-                                <input type="number" class="form-control text-center" onchange="onChange2()" value="<?php echo $secondQuarter['prerogative'] ?>" id="prerogative2" name="prerogative2">
+                                <input type="number" class="form-control text-center" oninput="onChange2()" value="<?php echo $secondQuarter['prerogative'] ?>" id="prerogative2" name="prerogative2">
 
                             </div>
                             <div class="form-group">
                                 <label for="summative1">Summative(25%)</label>
-                                <input type="number" class="form-control text-center" onchange="onChange2()" value="<?php echo $secondQuarter['summative'] ?>" id="summative2" name="summative2">
+                                <input type="number" class="form-control text-center" oninput="onChange2()" value="<?php echo $secondQuarter['summative'] ?>" id="summative2" name="summative2">
                             </div>
                             <div class="form-group">
                                 <label for="exam1">Exam(50%)</label>
-                                <input type="number" class="form-control text-center" onchange="onChange2()" id="exam2" name="exam2" value="<?php echo $secondQuarter['exam'] ?>">
+                                <input type="number" class="form-control text-center" oninput="onChange2()" id="exam2" name="exam2" value="<?php echo $secondQuarter['exam'] ?>">
                             </div>
                             <div class="form-group">
                                 <label for="bonus1">Bonus</label>
-                                <input type="number" class="form-control text-center" onchange="onChange2()" id="bonus2" name="bonus2" value="<?php echo $secondQuarter['bonus'] ?>">
+                                <input type="number" class="form-control text-center" oninput="onChange2()" id="bonus2" name="bonus2" value="<?php echo $secondQuarter['bonus'] ?>">
                             </div>
                             <div class="form-group">
                                 <label for="total1">Total</label>
@@ -530,20 +530,20 @@ if (isset($_POST['submit4'])) {
                         <form method="POST">
                             <div class="form-group">
                                 <label for="prerogative1">Prerogative(25%)</label>
-                                <input type="number" class="form-control text-center" onchange="onChange3()" value="<?php echo $thirdQuarter['prerogative'] ?>" id="prerogative3" name="prerogative3">
+                                <input type="number" class="form-control text-center" oninput="onChange3()" value="<?php echo $thirdQuarter['prerogative'] ?>" id="prerogative3" name="prerogative3">
 
                             </div>
                             <div class="form-group">
                                 <label for="summative1">Summative(25%)</label>
-                                <input type="number" class="form-control text-center" onchange="onChange3()" value="<?php echo $thirdQuarter['summative'] ?>" id="summative3" name="summative3">
+                                <input type="number" class="form-control text-center" oninput="onChange3()" value="<?php echo $thirdQuarter['summative'] ?>" id="summative3" name="summative3">
                             </div>
                             <div class="form-group">
                                 <label for="exam1">Exam(50%)</label>
-                                <input type="number" class="form-control text-center" onchange="onChange3()" id="exam3" name="exam3" value="<?php echo $thirdQuarter['exam'] ?>">
+                                <input type="number" class="form-control text-center" oninput="onChange3()" id="exam3" name="exam3" value="<?php echo $thirdQuarter['exam'] ?>">
                             </div>
                             <div class="form-group">
                                 <label for="bonus1">Bonus</label>
-                                <input type="number" class="form-control text-center" onchange="onChange3()" id="bonus3" name="bonus3" value="<?php echo $thirdQuarter['bonus'] ?>">
+                                <input type="number" class="form-control text-center" oninput="onChange3()" id="bonus3" name="bonus3" value="<?php echo $thirdQuarter['bonus'] ?>">
                             </div>
                             <div class="form-group">
                                 <label for="total3">Total</label>
@@ -589,20 +589,20 @@ if (isset($_POST['submit4'])) {
                         <form method="POST">
                             <div class="form-group">
                                 <label for="prerogative1">Prerogative(25%)</label>
-                                <input type="number" class="form-control text-center" onchange="onChange4()" value="<?php echo $fourthQuarter['prerogative'] ?>" id="prerogative4" name="prerogative4">
+                                <input type="number" class="form-control text-center" oninput="onChange4()" value="<?php echo $fourthQuarter['prerogative'] ?>" id="prerogative4" name="prerogative4">
 
                             </div>
                             <div class="form-group">
                                 <label for="summative1">Summative(25%)</label>
-                                <input type="number" class="form-control text-center" onchange="onChange4()" value="<?php echo $fourthQuarter['summative'] ?>" id="summative4" name="summative4">
+                                <input type="number" class="form-control text-center" oninput="onChange4()" value="<?php echo $fourthQuarter['summative'] ?>" id="summative4" name="summative4">
                             </div>
                             <div class="form-group">
                                 <label for="exam1">Exam(50%)</label>
-                                <input type="number" class="form-control text-center" onchange="onChange4()" value="<?php echo $fourthQuarter['exam'] ?>" id="exam4" name="exam4">
+                                <input type="number" class="form-control text-center" oninput="onChange4()" value="<?php echo $fourthQuarter['exam'] ?>" id="exam4" name="exam4">
                             </div>
                             <div class="form-group">
                                 <label for="bonus1">Bonus</label>
-                                <input type="number" class="form-control text-center" onchange="onChange4()" id="bonus4" name="bonus4" value="<?php echo $fourthQuarter['bonus'] ?>">
+                                <input type="number" class="form-control text-center" oninput="onChange4()" id="bonus4" name="bonus4" value="<?php echo $fourthQuarter['bonus'] ?>">
                             </div>
                             <div class="form-group">
                                 <label for="total3">Total</label>
