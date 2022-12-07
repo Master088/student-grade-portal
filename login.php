@@ -23,11 +23,11 @@ if (isset($_POST['submit'])) {
     $sql = "";
 
     /// for student encryption
-    // $ciphering = "AES-128-CTR";
-    // $option = 0;
-    // $encryption_iv = '1234567890123456';
-    // $encryption_key = "info";
-    // $encryption_pass = openssl_encrypt($password,$ciphering,$encryption_key,$option,$encryption_iv);
+    $ciphering = "AES-128-CTR";
+    $option = 0;
+    $encryption_iv = '1234567890123456';
+    $encryption_key = "info";
+    $encryption_pass = openssl_encrypt($password,$ciphering,$encryption_key,$option,$encryption_iv);
     //////////
     
     //teacher
@@ -60,8 +60,7 @@ if (isset($_POST['submit'])) {
     } else {
         $sql = "SELECT * FROM student
         WHERE username = '$username'
-        AND password = '$password'";
-        // -- AND password = '$encryption_pass'";
+        AND password = '$encryption_pass'";
 
         $res = mysqli_query($conn, $sql);
         if (mysqli_num_rows($res) == 1) {
