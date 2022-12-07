@@ -1,7 +1,5 @@
 <?php
 include 'mysql_connect.php';
-// reservation_time movie_title
-
 
 if (
     isset($_POST["class_id"]) &&  isset($_POST["absent"]) &&  isset($_POST["date"])

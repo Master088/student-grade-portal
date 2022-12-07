@@ -51,7 +51,7 @@ if (isset($_SESSION['isLogin'])) {
 <script src="https://kit.fontawesome.com/a81368914c.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
-<!-- <link rel="stylesheet" href="style.css"> -->
+<link rel="stylesheet" href="style.css">
 <style>
     * {
         box-sizing: border-box;
@@ -63,7 +63,6 @@ if (isset($_SESSION['isLogin'])) {
         margin: 0;
         font-family: Poppins;
         font-weight: 300;
-        /* background-image: url("img/background.png"); */
         height: 100%;
         font-size: 1em;
         overflow-x: hidden;
@@ -71,16 +70,6 @@ if (isset($_SESSION['isLogin'])) {
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-        /* background-color: #F8FAFB; */
-    }
-    @media print {
-        body *{
-            display: none;
-        }
-        #table, #table * {
-            display: block;
-            /* height: 100vh; */
-        }
     }
 </style>
 
@@ -94,7 +83,7 @@ if (isset($_SESSION['isLogin'])) {
     </nav>
 
     <div class="">
-        <h2 class="text-center mt-5">Student</h2>
+        <h2 class="text-center mt-5">Student Grade</h2>
         <div class="container-fluid mt-5 px-3 py-3">
             <div class="row">
                 <div class="card mb-3 ml-2 border-0 col-md-6">
@@ -107,10 +96,10 @@ if (isset($_SESSION['isLogin'])) {
                     $studentDetails = mysqli_fetch_assoc($res);
                     ?>
                     <div class="row no-gutters">
-                        <div class="col-md-4" >
-                            <img src="<?php echo $studentDetails['profile']; ?>" class="card-img border" alt="..." style="min-height: 30vh; min-width: 19vw;">
+                        <div class="col-md-6 ">
+                            <img src="<?php echo $studentDetails['profile']; ?>" class=" img-fluid border">
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-6">
                             <div class="card-body ml-lg-5">
                                 <h1 class="card-title"><?php echo $studentDetails['fullname']; ?></h1>
                                 <p class="card-text">LRN: <?php echo $studentDetails['lrn']; ?></p>
@@ -121,14 +110,13 @@ if (isset($_SESSION['isLogin'])) {
                         </div>
                     </div>
                 </div>
-                <div class="col-md-5 col-sm-12 " style="margin-left: 5vw">
+                <div class="col-md-5 col-sm-12 ">
                     <div class="row  d-flex justify-content-end " style="margin-right: -10vw">
-                        <div class="card col-md-5  border-0" >
+                        <div class="card col-md-5  border-0">
 
                             <div class="d-flex">
                                 <div class="form-group  ">
                                     <div class="d-flex">
-                                        <!-- <h4 class=" mx-2">School Year </h4> <button class="btn btn-primary rounded-circle btn-sm" data-bs-toggle="modal" data-bs-target="#addClass"><i class="bi bi-plus-circle-fill"></i></button> -->
                                         <h4 class=" mx-2">School Year </h4>
                                     </div>
                                     <div class=" mt-2 ">
@@ -155,10 +143,9 @@ if (isset($_SESSION['isLogin'])) {
                                 </div>
                             </div>
                         </div>
-                        <div class="card col-md-5 border-0 ">
-                            <div class="form-group">
-                                <button class="btn btn-danger"  id="print"><i class="bi bi-file-earmark-arrow-down-fill"></i> Download</button>
-                            
+                        <div class="card col-md-5 border-0 noPrint">
+                            <div class="form-group noPrint">
+                                <button class="btn btn-danger  " onclick="window.print();"><i class="bi bi-file-earmark-arrow-down-fill"></i> Download</button>
                             </div>
                         </div>
                     </div>
@@ -200,17 +187,7 @@ if (isset($_SESSION['isLogin'])) {
         }
     </script>
 
-    <script>
-        const printBtn = document.getElementById('print');
 
-        printBtn.addEventListener('click', function(){
-            var printdata = document.getElementById("table");
-            newwin = window.open("");
-            newwin.document.write(printdata.outerHTML);
-            newwin.print();
-            newwin.close();
-        })
-    </script>
 
 </body>
 
