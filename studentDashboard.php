@@ -73,6 +73,15 @@ if (isset($_SESSION['isLogin'])) {
         background-size: cover;
         /* background-color: #F8FAFB; */
     }
+    @media print {
+        body *{
+            display: none;
+        }
+        #table, #table * {
+            display: block;
+            /* height: 100vh; */
+        }
+    }
 </style>
 
 <body>
@@ -85,10 +94,10 @@ if (isset($_SESSION['isLogin'])) {
     </nav>
 
     <div class="">
-        <h2 class="text-center">Student</h2>
+        <h2 class="text-center mt-5">Student</h2>
         <div class="container-fluid mt-5 px-3 py-3">
             <div class="row">
-                <div class="card mb-3 border-0 ml-2  col-md-6">
+                <div class="card mb-3 ml-2 border-0 col-md-6">
                     <?php
                     $student_id = $_SESSION['id'];
                     $query =  "SELECT *
@@ -98,8 +107,8 @@ if (isset($_SESSION['isLogin'])) {
                     $studentDetails = mysqli_fetch_assoc($res);
                     ?>
                     <div class="row no-gutters">
-                        <div class="col-md-4">
-                            <img src="<?php echo $studentDetails['profile']; ?>" class="card-img border" alt="...">
+                        <div class="col-md-4" >
+                            <img src="<?php echo $studentDetails['profile']; ?>" class="card-img border" alt="..." style="min-height: 30vh; min-width: 19vw;">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body ml-lg-5">
@@ -112,9 +121,9 @@ if (isset($_SESSION['isLogin'])) {
                         </div>
                     </div>
                 </div>
-                <div class="col-md-5 col-sm-12 ">
-                    <div class="row  d-flex justify-content-around" style="margin-right: -10vw">
-                        <div class="card col-md-5  ">
+                <div class="col-md-5 col-sm-12 " style="margin-left: 5vw">
+                    <div class="row  d-flex justify-content-end " style="margin-right: -10vw">
+                        <div class="card col-md-5  border-0" >
 
                             <div class="d-flex">
                                 <div class="form-group  ">
@@ -123,7 +132,7 @@ if (isset($_SESSION['isLogin'])) {
                                         <h4 class=" mx-2">School Year </h4>
                                     </div>
                                     <div class=" mt-2 ">
-                                        <select class=" form-controls" onchange="getGradeTable()" name="school_year" id="school_year" required aria-label="Default select example">
+                                        <select class=" form-control" onchange="getGradeTable()" name="school_year" id="school_year" required aria-label="Default select example">
                                             <?php
 
                                             $sql = "SELECT DISTINCT class.school_year  FROM class_member
@@ -146,18 +155,20 @@ if (isset($_SESSION['isLogin'])) {
                                 </div>
                             </div>
                         </div>
-                        <div class="card col-md-5  ">
-                            <button class="btn btn-primary"> Download</button>
+                        <div class="card col-md-5 border-0 ">
+                            <div class="form-group">
+                                <button class="btn btn-danger"  id="print"><i class="bi bi-file-earmark-arrow-down-fill"></i> Download</button>
+                            
+                            </div>
                         </div>
                     </div>
 
                 </div>
             </div>
         </div>
-
-        <div class="container-fluid">
-            <div id="grade_table" class="text-dark mx-2"></div>
-        </div>
+    </div>
+    <div class="container-fluid" id="table">
+        <div id="grade_table" class="text-dark mx-2"></div>
     </div>
 
 
@@ -187,6 +198,18 @@ if (isset($_SESSION['isLogin'])) {
 
 
         }
+    </script>
+
+    <script>
+        const printBtn = document.getElementById('print');
+
+        printBtn.addEventListener('click', function(){
+            var printdata = document.getElementById("table");
+            newwin = window.open("");
+            newwin.document.write(printdata.outerHTML);
+            newwin.print();
+            newwin.close();
+        })
     </script>
 
 </body>

@@ -23,6 +23,14 @@ if (isset($_POST['submit'])) {
     $password = $_POST['password'];
     $password2 = $_POST['confirm_password'];
 
+
+    // password ecryption for student
+    $ciphering = "AES-128-CTR";
+    $option = 0;
+    $encryption_iv = '1234567890123456';
+    $encryption_key = "info";
+    $encryption_pass = openssl_encrypt($password,$ciphering,$encryption_key,$option,$encryption_iv);
+
     if ($password != $password2) {
         echo '<script>';
         echo "alert('password not macth!');";
@@ -54,7 +62,7 @@ if (isset($_POST['submit'])) {
                     -- account_type='student',                    
                     username='$username',
                     profile='$directory',
-                    password='$password';
+                    password='$encryption_pass';
                     ";
 
                 if (mysqli_query($conn, $sql)) {

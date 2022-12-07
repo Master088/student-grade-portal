@@ -21,6 +21,15 @@ if (isset($_POST['submit'])) {
     $password = $_POST['password'];
     $_SESSION['isLogin'] = false;
     $sql = "";
+
+    /// for student encryption
+    // $ciphering = "AES-128-CTR";
+    // $option = 0;
+    // $encryption_iv = '1234567890123456';
+    // $encryption_key = "info";
+    // $encryption_pass = openssl_encrypt($password,$ciphering,$encryption_key,$option,$encryption_iv);
+    //////////
+    
     //teacher
     if (isset($_POST['isTeacher'])) {
 
@@ -52,6 +61,7 @@ if (isset($_POST['submit'])) {
         $sql = "SELECT * FROM student
         WHERE username = '$username'
         AND password = '$password'";
+        // -- AND password = '$encryption_pass'";
 
         $res = mysqli_query($conn, $sql);
         if (mysqli_num_rows($res) == 1) {
@@ -85,16 +95,6 @@ if (isset($_POST['submit'])) {
 
 <head>
     <title>Login</title>
-    <!-- <link rel="stylesheet" type="text/css" href="style1.css">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <!-- Google Fonts -->
@@ -210,10 +210,10 @@ if (isset($_POST['submit'])) {
             <form method="POST" class="needs-validation" novalidate>
                 <div class="d-flex align-items-center mb-3 pb-1">
                     <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
-                    <span class="h1 fw-bold mb-0">Logo</span>
+                    <span class="h1 fw-bold mb-0"><h5 class="fw-normal mt-1" style="letter-spacing: 1px;">Ocean of Knowledge Ementary School.</h5></span>
                 </div>
-                <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Login your account here.</h5>
-                <div class="form mb-4">
+                
+                <div class="form mb-4 mt-5">
                     <label class="form-label" for="username">Username</label>
                     <input type="text" id="username" name="username" class="form-control form-control-lg" required>
                     <div class="invalid-feedback">Please Enter Username.</div>

@@ -344,7 +344,7 @@ if (isset($_POST['submit4'])) {
                 ?>
                 <div class="row no-gutters">
                     <div class="col-md-4">
-                        <img src="<?php echo $classMemberDetails['profile']; ?>" class="card-img border" alt="...">
+                        <img src="<?php echo $classMemberDetails['profile']; ?>" class="card-img border" alt="..." style="min-height: 30vh; min-width: 19vw; border-radius: 20px;">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body ml-lg-5">
