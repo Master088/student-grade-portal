@@ -1,15 +1,12 @@
 <?php
 include 'mysql_connect.php';
-// reservation_time movie_title
 
-
+// check if the class id is present in the post request
 if (
     isset($_GET["class_id"])
 ) {
-
     $class_id = $_GET["class_id"];
-
-
+    // get all class attendance
     $query =  "SELECT *
     FROM class_attendance
     INNER JOIN student ON class_attendance.student_id=student.id 
@@ -17,7 +14,7 @@ if (
     WHERE class_attendance.class_id = " . $class_id . " ORDER BY class_attendance.attendance_id DESC";
 
     $result = mysqli_query($conn, $query);
-
+    // display it on table
     $value = "";
     $value = '
     <table class="table ">
@@ -42,5 +39,6 @@ if (
     </tr> ';
     }
     $value .= '</table>';
+    // return a response as table 
     echo json_encode(['status' => 'success', 'html' => $value]);
 }

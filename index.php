@@ -1,7 +1,8 @@
 <?php
 session_start();
 include 'mysql_connect.php';
-// prevent unauthenticated user and not student user to access this page
+
+// prevent unauthenticated user and  student user to access this page
 if (isset($_SESSION['isLogin'])) {
     if (!$_SESSION['isLogin']) {
         header('Location:login.php');
@@ -38,7 +39,7 @@ if (isset($_SESSION['isLogin'])) {
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
 <style>
-* {
+    * {
         box-sizing: border-box;
     }
 
@@ -75,7 +76,7 @@ if (isset($_SESSION['isLogin'])) {
     </div>
     <div class="container-fluid" style="margin-top: 8vh">
         <div class="row row-cols-1 row-cols-md-4">
-
+            <!-- get all subject of the teacher using teacher id -->
             <?php
             $sql = "SELECT *
                 FROM subject
@@ -84,6 +85,7 @@ if (isset($_SESSION['isLogin'])) {
 
             $res = mysqli_query($conn, $sql);
             if (mysqli_num_rows($res) > 0) {
+                // loop to display all subject of teacher
                 while ($row = mysqli_fetch_assoc($res)) { ?>
                     <div class="col mb-4">
                         <div class="card h-100">
@@ -92,51 +94,19 @@ if (isset($_SESSION['isLogin'])) {
                                 <b>
                                     <p class="card-title"> <?php echo $row['subject_title']; ?></p>
                                 </b>
-
-
                                 <p class="card-text">Teacher <?php echo $row['fullname']; ?></p>
                                 <p class="card-text"></i> <?php echo $row['grade_lvl']; ?></b> </p>
-                                <!-- <a href="location_details.php" class="btn btn-primary">Book Now</a> -->
                                 <a href="<?php echo 'subject.php?subject_id=' . $row['subject_id'] ?>" class="btn btn-primary">View Details</a>
 
                             </div>
-
-
-
-
-
-
-
                         </div>
                     </div>
-
             <?php
                 }
             }
             ?>
         </div>
     </div>
-
-
-
-
 </body>
-
-
-
-<script>
-    var loadFile = function(event) {
-        var image = document.getElementById('output');
-        image.src = URL.createObjectURL(event.target.files[0]);
-        image.setAttribute("class", "out");
-    };
-
-
-    var loadFile2 = function(event) {
-        var image = document.getElementById('output2');
-        image.src = URL.createObjectURL(event.target.files[0]);
-        image.setAttribute("class", "out");
-    }
-</script>
 
 </html>

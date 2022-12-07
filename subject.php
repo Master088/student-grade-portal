@@ -2,7 +2,7 @@
 session_start();
 include 'mysql_connect.php';
 
-// prevent unauthenticated user and not student user to access this page
+// prevent unauthenticated user and  student user to access this page
 if (isset($_SESSION['isLogin'])) {
     if (!$_SESSION['isLogin']) {
         header('Location:login.php');
@@ -19,6 +19,7 @@ if (isset($_SESSION['isLogin'])) {
 }
 
 $subject_id = "";
+// get subject id; use subject id to get subject details
 if (isset($_GET['subject_id'])) {
     $subject_id = $_GET['subject_id'];
     $sql = "SELECT * FROM  subject WHERE subject_id=" . $subject_id;
@@ -29,22 +30,20 @@ if (isset($_GET['subject_id'])) {
     }
 }
 
-
+// fires when add class button click
 if (isset($_POST['add_class'])) {
-
+    // get data from post request
+    // combine date_from and date_to to create school year 
     $school_year = $_POST['date_from'] . "-" . $_POST['date_to'];
     $schedule = $_POST['schedule'];
 
-
-
+    // check if theres class for this school year!
     $sql = "SELECT * FROM  class where subject_id='$subject_id' AND school_year='$school_year'";
     $res = mysqli_query($conn, $sql);
     if (mysqli_num_rows($res) > 0) {
-        // echo '<script>';
-        // echo "alert('Already have a class for this school year!(change this later)');";
-        // echo '</script>';
         $_SESSION['status'] = "error";
     } else {
+        //insert into class table query
         $sql = "INSERT INTO class 
         SET 
         class_id=null,
@@ -52,24 +51,17 @@ if (isset($_POST['add_class'])) {
         schedule='$schedule',
         subject_id='$subject_id'
         ";
-
+        // if the insert is success
         if (mysqli_query($conn, $sql)) {
-            // echo '<script>';
-            // echo "alert('Add Sucessfully!');";
-            // echo '</script>';
             $_SESSION['status_success'] = "success";
             header("Refresh:1; url=subject.php?subject_id=" . $subject_id, true, 1);
         } else {
+            // if insert failed
             echo mysqli_error($conn);
-            echo '<script>';
-            echo "alert('Error !');";
-            echo '</script>';
         }
     }
 }
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -89,6 +81,7 @@ if (isset($_POST['add_class'])) {
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+<link rel="stylesheet" href="style.css">
 <style>
     * {
         box-sizing: border-box;
@@ -100,7 +93,6 @@ if (isset($_POST['add_class'])) {
         margin: 0;
         font-family: Poppins;
         font-weight: 300;
-        /* background-image: url("img/background.png"); */
         height: 100%;
         font-size: 1em;
         overflow-x: hidden;
@@ -112,7 +104,6 @@ if (isset($_POST['add_class'])) {
     }
 
     .card {
-        /*float: left;*/
         max-height: 500px;
         padding: .75rem;
         margin-bottom: 2rem;
@@ -125,10 +116,7 @@ if (isset($_POST['add_class'])) {
     }
 </style>
 
-<link rel="stylesheet" href="style.css">
-
 <body>
-
     <nav class="navbar navbar-light bg-dark">
         <a href="index.php" class="navbar-brand text-white">Classroom Management System</a>
         <form action="logout.php" method="POST">
@@ -140,34 +128,30 @@ if (isset($_POST['add_class'])) {
         <h1 class="text-center"> <?php echo $subject_details['subject_title']; ?></h1>
     </div>
 
-
     <div class="container ">
         <div class="row d-flex justify-content-around">
             <div class="col-md-4  ">
                 <div class="d-flex">
                     <div class="form-group  ">
                         <div class="d-flex">
-                            <!-- <h4 class=" mx-2">School Year </h4> <button class="btn btn-primary rounded-circle btn-sm" data-bs-toggle="modal" data-bs-target="#addClass"><i class="bi bi-plus-circle-fill"></i></button> -->
                             <h4 class=" mx-2">School Year </h4>
                             <button class="btn btn-info " data-bs-toggle="modal" data-bs-target="#addClass"><i class="bi bi-plus-circle-fill"></i> Add School Year</button>
-
                         </div>
                         <div class=" mt-2 ">
+                            <!-- call get studeStudent function when the value is change -->
                             <select class=" form-select" onchange="getStudent()" name="school_year" id="school_year" required aria-label="Default select example">
+                                <!-- display all school year in the dropdown/select -->
                                 <?php
-
                                 $sql = "SELECT * FROM class WHERE subject_id=" . $subject_id;
-
                                 $res = mysqli_query($conn, $sql);
                                 if (mysqli_num_rows($res) > 0) {
                                     while ($row = mysqli_fetch_assoc($res)) {  ?>
-
+                                        <!-- set class id as value and school year as display text -->
                                         <option value="<?php echo $row['class_id']; ?>"><?php echo $row['school_year']; ?></option>
                                 <?php
                                     }
                                 }
                                 ?>
-
                             </select>
                         </div>
                     </div>
@@ -176,28 +160,29 @@ if (isset($_POST['add_class'])) {
 
             <div class="col-md-7  ">
                 <div class="d-flex justify-content-end">
+                    <!-- open add student modal -->
                     <button class="btn btn-info rounded-button mx-2" data-bs-toggle="modal" data-bs-target="#addStudent"><i class="bi bi-person-plus"></i> Add Student</button>
+                    <!-- open add attendance modal -->
                     <button class="btn btn-info rounded-button mx-2" data-bs-toggle="modal" data-bs-target="#addAttendance" onclick="getAttendanceList()"><i class="bi bi-card-checklist"></i> Add attendance</button>
                 </div>
-
             </div>
         </div>
     </div>
 
     <div class="container mt-3">
         <h2 class="text-center">My Students</h2>
+        <!-- the student table will be display here using javascript -->
         <div id="table" class="text-dark mx-2"></div>
-
     </div>
     <div class="container mt-5">
         <h2 class="text-center">Attedance</h2>
         <div class="card card-body">
+            <!-- the attendance table will be display here using javascript -->
             <div id="attendance_table" class="text-dark mx-2"></div>
         </div>
     </div>
 
-
-    <!-- add class -->
+    <!-- add class modal -->
     <div class="modal fade" id="addClass">
         <div class="modal-dialog">
             <form method="POST" action="">
@@ -218,6 +203,7 @@ if (isset($_POST['add_class'])) {
                                 <div class="form-group row">
                                     <label class="" for="date_from">Date from:</label>
                                     <div class=" mt-2">
+                                        <!-- display all year from 1950 to current year     -->
                                         <select class="form-select" name="date_from" id="date_from" aria-label="Default select example" required>
                                             <option selected disabled>Please Select year</option>
                                             <?php
@@ -226,7 +212,6 @@ if (isset($_POST['add_class'])) {
                                             }
                                             ?>
                                         </select>
-                                        <!-- <div class="invalid-feedback">Please Select Date From.</div> -->
                                     </div>
                                 </div>
                             </div>
@@ -234,6 +219,7 @@ if (isset($_POST['add_class'])) {
                                 <div class="form-group row">
                                     <label class=" " for="date_to">Date to:</label>
                                     <div class=" mt-2">
+                                        <!-- display all year from 1950 to current year     -->
                                         <select class=" form-select" name="date_to" id="date_to" aria-label="Default select example" required>
                                             <option selected disabled>Please Select year</option>
                                             <?php
@@ -242,7 +228,6 @@ if (isset($_POST['add_class'])) {
                                             }
                                             ?>
                                         </select>
-                                        <!-- <div class="invalid-feedback">Please Select Date To.</div> -->
                                     </div>
                                 </div>
                             </div>
@@ -251,7 +236,6 @@ if (isset($_POST['add_class'])) {
                                     <label class="" for="schedule">Schedule:</label>
                                     <div class="mt-2">
                                         <input class=" form-control" type="text" name="schedule" id="schedule" required>
-                                        <!-- <div class="invalid-feedback">Please Enter Schedule.</div> -->
                                     </div>
                                 </div>
                             </div>
@@ -263,6 +247,7 @@ if (isset($_POST['add_class'])) {
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <!-- fires validate function once the button is clicked -->
                         <button type="submit" class="btn btn-primary" name="add_class" onclick="validate();">Submit</button>
                     </div>
 
@@ -270,10 +255,10 @@ if (isset($_POST['add_class'])) {
             </form>
         </div>
     </div>
+
     <!-- add student -->
     <div class="modal fade" id="addStudent">
         <div class="modal-dialog">
-
             <div class="modal-content">
 
                 <!-- Modal Header -->
@@ -294,26 +279,22 @@ if (isset($_POST['add_class'])) {
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <!-- fires add student function once the button is clicked -->
                     <button type="submit" class="btn btn-primary" name="add_student" onclick="addStudent()">Add Student</button>
                 </div>
-
             </div>
-
         </div>
     </div>
 
-    <!--remove student -->
+    <!--remove student the class -->
     <div class="modal fade" id="removeStudent">
         <div class="modal-dialog">
-
             <div class="modal-content">
 
                 <!-- Modal Header -->
@@ -327,11 +308,6 @@ if (isset($_POST['add_class'])) {
                     <p>Are you sure you want to delete this record?</p>
                 </div>
 
-                <!-- Modal footer -->
-                <!-- <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" name="add_student" id="btn_remove_student">Remove</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                </div> -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" name="deleteRecord" class="btn btn-danger" name="add_student" id="btn_remove_student">Remove</button>
@@ -345,7 +321,6 @@ if (isset($_POST['add_class'])) {
     <!--add attendance -->
     <div class="modal fade" id="addAttendance">
         <div class="modal-dialog modal-lg">
-
             <div class="modal-content">
 
                 <!-- Modal Header -->
@@ -371,7 +346,6 @@ if (isset($_POST['add_class'])) {
                                 </label>
                             </div>
                         </div>
-
                     </div>
                     <div class="form-group">
                         <p id='attendance_validate_message' class="text-danger"></p>
@@ -390,34 +364,17 @@ if (isset($_POST['add_class'])) {
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
+                        <!-- fires add attendance when the button is clicked -->
                         <button type="submit" class="btn btn-primary" name="add_attendance" onclick="addAttendance()">Add Attendance</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
-
                 </div>
-
             </div>
         </div>
 </body>
 
-
-
 <script>
-    var loadFile = function(event) {
-        var image = document.getElementById('output');
-        image.src = URL.createObjectURL(event.target.files[0]);
-        image.setAttribute("class", "out");
-    };
-
-
-    var loadFile2 = function(event) {
-        var image = document.getElementById('output2');
-        image.src = URL.createObjectURL(event.target.files[0]);
-        image.setAttribute("class", "out");
-    }
-
-
-
+    // run all of this function once finish loading
     $(document).ready(function() {
         getStudent()
         delete_record()
@@ -425,16 +382,17 @@ if (isset($_POST['add_class'])) {
         getAttendanceTable()
     });
 
+    // add student function
     function addStudent() {
-
-        // add validation here for lrn
+        // get value using id
         let lrn = $("#lrn").val();
         let school_year = $("#school_year").val()
 
-
+        // check if the lrn is blank or empty
         if (lrn == "") {
             $("#message").html("Please fill in the Blank!");
         } else {
+            // sent ajax post request to add_student.php with lrn and class id
             $.ajax({
                 url: "add_student.php",
                 method: "post",
@@ -443,25 +401,28 @@ if (isset($_POST['add_class'])) {
                     class_id: school_year
                 },
                 success: function(data) {
-                    console.log("here", data)
+                    //convert the response to json
                     data = $.parseJSON(data);
+                    // is  status is succes display the data(table) to div using id
                     if (data.status == "success") {
                         getStudent()
                         $('#addStudent').modal('toggle');
                     } else {
+                        // else display error
                         alert(data.message)
                     }
                 },
             });
         }
-
-
     }
 
+    //class members
     function getStudent() {
+        // call get attendance function
         getAttendanceTable();
+        // get active school year
         let school_year = $("#school_year").val()
-
+        // send ajax request to get_class_member.php with class id
         $.ajax({
             url: "get_class_member.php",
             method: "post",
@@ -469,25 +430,26 @@ if (isset($_POST['add_class'])) {
                 class_id: school_year
             },
             success: function(data) {
-                console.log(data);
+                // convert response to json
                 data = $.parseJSON(data);
                 if (data.status == "success") {
-                    // console.log(data.html);
+                    // append the data(table) to the div the id of table
                     $("#table").html(data.html);
                 }
             },
         });
-
-
     }
 
-    ///delete record
+    // Remove student from the class
     function delete_record() {
         $(document).on("click", "#btn_del", function() {
+            // get the id in the active(this) button
             var student_id = $(this).attr("data-id1");
+            // show modal
             $("#removeStudent").modal("show");
+            // fires when ths user confirm the deletion of record
             $(document).on("click", "#btn_remove_student", function() {
-
+                // send ajax request to remove_student.php with student id 
                 $.ajax({
                     url: "remove_student.php",
                     method: "post",
@@ -497,6 +459,7 @@ if (isset($_POST['add_class'])) {
                     success: function(data) {
                         data = $.parseJSON(data);
                         if (data.status == "success") {
+                            // if request is success call the get student function to refresh the table
                             getStudent()
                             $("#removeStudent").modal("hide");
                         } else {
@@ -508,16 +471,21 @@ if (isset($_POST['add_class'])) {
             });
         });
     }
+    // declare an array for holding id of absent student
     var attendance_list = []
 
     function addAttendance() {
+        // get current school year
         let school_year = $("#school_year").val()
+        // get date of attendance
         let date = $("#date").val()
-
+        // / convert array of absent student(id) to string
         let absent = JSON.stringify(attendance_list)
+        // check if the date is empty
         if (date == "") {
             $("#attendance_validate_message").html("Please Insert Date!");
         } else {
+            // send ajax request to add_attendance.php with class id array of absent student and date
             $.ajax({
                 url: "add_attendance.php",
                 method: "POST",
@@ -527,20 +495,23 @@ if (isset($_POST['add_class'])) {
                     date
                 },
                 success: function(data) {
+                    //call getAttendanceTable() to refresh the table
                     getAttendanceTable()
                     $("#addAttendance").modal("hide");
                 },
             });
         }
     }
-    ///delete record
+
+
     function attendance() {
+        // fires when check box in attendance modal is click
         $(document).on("click", "#student", function() {
+            // get student id for this(current instance)
             var student_id = $(this).val();
-            console.log(student_id)
+
             // check if id is in the list
             // if yes remove if not add
-
             if (attendance_list.includes(student_id)) {
                 attendance_list = attendance_list.filter((item) => {
                     return item != student_id;
@@ -548,14 +519,13 @@ if (isset($_POST['add_class'])) {
             } else {
                 attendance_list.push(student_id)
             }
-            console.log(attendance_list)
         });
     }
 
+    // get attendance list(checkbox and name)
     function getAttendanceList() {
-
         let school_year = $("#school_year").val()
-
+        // send ajax request to  get_attendance_list.php with class id to get all member of the class
         $.ajax({
             url: "get_attendance_list.php",
             method: "GET",
@@ -563,20 +533,21 @@ if (isset($_POST['add_class'])) {
                 class_id: school_year
             },
             success: function(data) {
-                console.log(data);
+                //convert the response to json
                 data = $.parseJSON(data);
                 if (data.status == "success") {
+                    // append the response to div with id of #attendance_list
                     $("#attendance_list").html(data.html);
                 }
             },
         });
-
-
     }
 
+    // get attendance table
     function getAttendanceTable() {
+        // get current school year
         let school_year = $("#school_year").val()
-
+        // send ajax request to get_attendance_table.php with class id
         $.ajax({
             url: "get_attendance_table.php",
             method: "GET",
@@ -584,29 +555,26 @@ if (isset($_POST['add_class'])) {
                 class_id: school_year
             },
             success: function(data) {
-                console.log(data);
+                // convert the response to json
                 data = $.parseJSON(data);
                 if (data.status == "success") {
+                    // append the response to div with id of attendance_table
                     $("#attendance_table").html(data.html);
                 }
             },
         });
-
-
     }
 </script>
 
 <script>
     // add class validation
     function validate() {
-
         let dateFrom = document.getElementById("date_from");
         let txtValue1 = dateFrom.value;
         let dateTo = document.getElementById("date_to");
         let txtValue2 = dateTo.value;
         let sched = document.getElementById("schedule");
         let txtValue3 = sched.value;
-        // alert(txtValue3);
         if (txtValue1 == "" || txtValue2 == "" || txtValue3 == "") {
             $("#class_validate_message").html("All The Field are Required!");
         }

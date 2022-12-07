@@ -2,7 +2,7 @@
 session_start();
 include 'mysql_connect.php';
 
-// prevent unauthenticated user and not student user to access this page
+// prevent unauthenticated user and teacher  to access this page
 if (isset($_SESSION['isLogin'])) {
     if (!$_SESSION['isLogin']) {
         header('Location:login.php');
@@ -17,18 +17,6 @@ if (isset($_SESSION['isLogin'])) {
     echo '</script>';
     header('Location:login.php');
 }
-
-// $subject_id = "";
-// if (isset($_GET['subject_id'])) {
-//     $subject_id = $_GET['subject_id'];
-//     $sql = "SELECT * FROM  subject WHERE subject_id=" . $subject_id;
-//     $res = mysqli_query($conn, $sql);
-//     if (mysqli_num_rows($res) > 0) {
-
-//         $subject_details = mysqli_fetch_assoc($res);
-//     }
-// }
-
 
 
 ?>
@@ -87,6 +75,7 @@ if (isset($_SESSION['isLogin'])) {
         <div class="container-fluid mt-5 px-3 py-3">
             <div class="row">
                 <div class="card mb-3 ml-2 border-0 col-md-6">
+                    <!-- get student data -->
                     <?php
                     $student_id = $_SESSION['id'];
                     $query =  "SELECT *
@@ -121,6 +110,7 @@ if (isset($_SESSION['isLogin'])) {
                                     </div>
                                     <div class=" mt-2 ">
                                         <select class=" form-control" onchange="getGradeTable()" name="school_year" id="school_year" required aria-label="Default select example">
+                                            <!-- get school year  -->
                                             <?php
 
                                             $sql = "SELECT DISTINCT class.school_year  FROM class_member
@@ -145,6 +135,7 @@ if (isset($_SESSION['isLogin'])) {
                         </div>
                         <div class="card col-md-5 border-0 noPrint">
                             <div class="form-group noPrint">
+                                <!-- print the page. no print class exclude this button in print  -->
                                 <button class="btn btn-danger  " onclick="window.print();"><i class="bi bi-file-earmark-arrow-down-fill"></i> Download</button>
                             </div>
                         </div>
@@ -164,10 +155,12 @@ if (isset($_SESSION['isLogin'])) {
         $(document).ready(function() {
             getGradeTable()
         });
-
+        // get all student grade for active school year function
         function getGradeTable() {
+            // get current school year 
             let school_year = $("#school_year").val()
-            console.log("here", school_year)
+
+            // send ajax request to get_student_grade.php with school year
             $.ajax({
                 url: "get_student_grade.php",
                 method: "GET",
@@ -175,18 +168,16 @@ if (isset($_SESSION['isLogin'])) {
                     school_year
                 },
                 success: function(data) {
-                    console.log(data);
+                    //convert the response to json
                     data = $.parseJSON(data);
                     if (data.status == "success") {
+                        // append the response to div with oid of grade_table
                         $("#grade_table").html(data.html);
                     }
                 },
             });
-
-
         }
     </script>
-
 
 
 </body>

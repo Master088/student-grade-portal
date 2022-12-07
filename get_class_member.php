@@ -1,8 +1,8 @@
 <?php
 include 'mysql_connect.php';
-// reservation_time movie_title
 
 
+//check if class id is present in the post request
 if (
     isset($_POST["class_id"])
 ) {
@@ -28,7 +28,7 @@ if (
     WHERE class_member.class_id = " . $class_id;
 
     $result = mysqli_query($conn, $query);
-
+    // loop each user data and convert in into table structure 
     while ($row = mysqli_fetch_assoc($result)) {
         $value .= ' <tr>
                         <td>' . $row['lrn'] . '</td>
@@ -39,5 +39,6 @@ if (
                     </tr> ';
     }
     $value .= '</table>';
+    // return response as table
     echo json_encode(['status' => 'success', 'html' => $value]);
 }

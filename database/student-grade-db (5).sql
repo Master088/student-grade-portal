@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2022 at 11:39 AM
+-- Generation Time: Dec 07, 2022 at 03:42 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -73,7 +73,9 @@ INSERT INTO `class_attendance` (`attendance_id`, `student_id`, `class_id`, `stat
 (9, 9, 4, 'absent', ''),
 (10, 8, 4, 'present', ''),
 (11, 10, 4, 'absent', ''),
-(12, 11, 4, 'present', '');
+(12, 11, 4, 'present', ''),
+(13, 8, 3, 'present', '2021-01-07'),
+(14, 9, 3, 'present', '2021-01-07');
 
 -- --------------------------------------------------------
 
@@ -98,12 +100,10 @@ CREATE TABLE `class_grade` (
 --
 
 INSERT INTO `class_grade` (`grade_id`, `class_id`, `student_id`, `prerogative`, `summative`, `bonus`, `exam`, `total`, `quarter`) VALUES
-(1, 4, 9, 25, 10, 111, 50, 100, '1st Quarter'),
-(5, 4, 9, 2, 0, 0, 0, 2, '2nd Quarter'),
-(6, 4, 9, 5, 1, 0, 0, 6, '3rd Quarter'),
-(9, 4, 9, 0, 0, 0, 50, 50, '4th Quarter'),
-(10, 4, 8, 1, 1, 0, 1, 3, '1st Quarter'),
-(11, 2, 9, 1, 1, 1, 1, 4, '1st Quarter');
+(12, 4, 9, 25, 25, 1, 50, 100, '1st Quarter'),
+(13, 2, 9, 5, 1, 1, 1, 8, '1st Quarter'),
+(14, 2, 9, 20, 0, 0, 0, 20, '2nd Quarter'),
+(15, 3, 9, 25, 0, 0, 50, 75, '1st Quarter');
 
 -- --------------------------------------------------------
 
@@ -126,7 +126,9 @@ INSERT INTO `class_member` (`class_member_id`, `student_id`, `class_id`) VALUES
 (15, 8, 4),
 (20, 10, 4),
 (21, 11, 4),
-(22, 9, 2);
+(22, 9, 2),
+(23, 8, 3),
+(24, 9, 3);
 
 -- --------------------------------------------------------
 
@@ -176,7 +178,31 @@ INSERT INTO `subject` (`subject_id`, `subject_title`, `grade_lvl`, `teacher_id`)
 (1, 'Math', 'Grade1', 1),
 (2, 'English', 'Grade1', 1),
 (3, 'Science', 'Grade1', 1),
-(4, 'Filipino', 'Grade1', 1);
+(4, 'Filipino', 'Grade1', 1),
+(5, 'Math', 'Grade 2', 2),
+(6, 'English', 'Grade 2', 2),
+(7, 'Science', 'Grade 2', 2),
+(8, 'Filipino', 'Grade 2', 2),
+(9, 'Filipino', 'Grade 3', 3),
+(10, 'Math', 'Grade 3', 3),
+(11, 'English', 'Grade 3', 3),
+(12, 'Science', 'Grade 3', 3),
+(14, 'Math', 'Grade 4', 4),
+(15, 'English', 'Grade 4', 4),
+(16, 'Science', 'Grade 4', 4),
+(17, 'Filipino', 'Grade 4', 4),
+(18, 'Math', 'Grade 5', 5),
+(19, 'English', 'Grade 5', 5),
+(20, 'Science', 'Grade 5', 5),
+(21, 'Filipino', 'Grade 5', 5),
+(22, 'Math', 'Grade 6', 6),
+(23, 'English', 'Grade 6', 6),
+(24, 'Science', 'Grade 6', 6),
+(25, 'Filipino', 'Grade 6', 6),
+(26, 'Mapeh', 'Grade 5', 7),
+(27, 'Mapeh', 'Grade 6', 8),
+(28, 'Hekasi', 'Grade 6', 9),
+(29, 'Hekasi', 'Grade 5', 9);
 
 -- --------------------------------------------------------
 
@@ -274,19 +300,19 @@ ALTER TABLE `class`
 -- AUTO_INCREMENT for table `class_attendance`
 --
 ALTER TABLE `class_attendance`
-  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `class_grade`
 --
 ALTER TABLE `class_grade`
-  MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `class_member`
 --
 ALTER TABLE `class_member`
-  MODIFY `class_member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `class_member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `student`
@@ -298,7 +324,7 @@ ALTER TABLE `student`
 -- AUTO_INCREMENT for table `subject`
 --
 ALTER TABLE `subject`
-  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `teacher`

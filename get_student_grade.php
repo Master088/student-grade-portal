@@ -1,9 +1,8 @@
 <?php
 session_start();
 include 'mysql_connect.php';
-// reservation_time movie_title
 
-
+// check is school year id is present in the post request
 if (
     isset($_GET["school_year"])
 ) {
@@ -11,7 +10,7 @@ if (
     $student_id = $_SESSION["id"];
     $school_year = $_GET["school_year"];
 
-
+    // get class of student in the active school year
     $query =  "SELECT *
     FROM class_member
     INNER JOIN student ON class_member.student_id=student.id 
@@ -19,7 +18,7 @@ if (
     WHERE student.id = " . $student_id . " AND class.school_year='" . $school_year . "'";
 
     $result = mysqli_query($conn, $query);
-
+    // convert the data into table structure
     $value = "";
     $value = '
     <table class="table ">
@@ -75,10 +74,7 @@ if (
         $resultQuarter4 = mysqli_query($conn, $query);
         $quarter4 = mysqli_fetch_assoc($resultQuarter4);
 
-
-
-
-
+        // for final grade
         $final = 0;
         $value .= ' <tr>
         <td>' .   $subject['subject_title'] . '</td>';

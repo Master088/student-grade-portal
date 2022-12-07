@@ -2,7 +2,7 @@
 session_start();
 include 'mysql_connect.php';
 
-// prevent unauthenticated user and not student user to access this page
+// prevent unauthenticated user and   student user to access this page
 if (isset($_SESSION['isLogin'])) {
     if (!$_SESSION['isLogin']) {
         header('Location:login.php');
@@ -18,15 +18,16 @@ if (isset($_SESSION['isLogin'])) {
     header('Location:login.php');
 }
 
-
+// fires when the add for the 1st quarter is click
 if (isset($_POST['submit1'])) {
-
+    //get all data from the 1st quarter form
     $prerogative = $_POST['prerogative1'];
     $summative = $_POST['summative1'];
     $exam = $_POST['exam1'];
     $bonus = $_POST['bonus1'];
     $total = $_POST['total1'];
 
+    // get class member details
     $class_member_id = $_GET["class_member_id"];
     $query =  "SELECT *
         FROM class_member
@@ -35,6 +36,8 @@ if (isset($_POST['submit1'])) {
         WHERE class_member.class_member_id = " . $class_member_id;
     $res = mysqli_query($conn, $query);
     $classMemberDetails = mysqli_fetch_assoc($res);
+
+    // check if there a existing record for this subject and student
     $sql = "SELECT *
     FROM class_grade 
     WHERE student_id =" . $classMemberDetails['id'] . " AND class_id=" . $classMemberDetails['class_id'] . " AND quarter ='1st Quarter'";
@@ -42,7 +45,7 @@ if (isset($_POST['submit1'])) {
     $res = mysqli_query($conn, $sql);
     $data =  mysqli_fetch_assoc($res);
     $sql = "";
-
+    // if yes; the query will be update. if no insert
     if (mysqli_num_rows($res) > 0) {
         // update
         $sql = "UPDATE class_grade 
@@ -76,20 +79,18 @@ if (isset($_POST['submit1'])) {
         header("Refresh:1; url=student_grade.php?class_member_id=" . $_GET["class_member_id"], true, 5);
     } else {
         echo mysqli_error($conn);
-        echo '<script>';
-        echo "alert('Error !');";
-        echo '</script>';
     }
 }
-
+// fires when the add for the 2nd quarter is click
 if (isset($_POST['submit2'])) {
-
+    //get all data from the 2nd quarter form
     $prerogative = $_POST['prerogative2'];
     $summative = $_POST['summative2'];
     $exam = $_POST['exam2'];
     $bonus = $_POST['bonus2'];
     $total = $_POST['total2'];
 
+    // get class member details
     $class_member_id = $_GET["class_member_id"];
     $query =  "SELECT *
         FROM class_member
@@ -98,6 +99,7 @@ if (isset($_POST['submit2'])) {
         WHERE class_member.class_member_id = " . $class_member_id;
     $res = mysqli_query($conn, $query);
     $classMemberDetails = mysqli_fetch_assoc($res);
+    // check if there a existing record for this subject and student
     $sql = "SELECT *
     FROM class_grade 
     WHERE student_id =" . $classMemberDetails['id'] . " AND class_id=" . $classMemberDetails['class_id'] . " AND quarter ='2nd Quarter'";
@@ -105,7 +107,7 @@ if (isset($_POST['submit2'])) {
     $res = mysqli_query($conn, $sql);
     $data =  mysqli_fetch_assoc($res);
     $sql = "";
-
+    // if yes; the query will be update. if no insert
     if (mysqli_num_rows($res) > 0) {
         // update
         $sql = "UPDATE class_grade 
@@ -135,24 +137,20 @@ if (isset($_POST['submit2'])) {
         ";
     }
     if (mysqli_query($conn, $sql)) {
-
         header("Refresh:1; url=student_grade.php?class_member_id=" . $_GET["class_member_id"], true, 5);
     } else {
         echo mysqli_error($conn);
-        echo '<script>';
-        echo "alert('Error !');";
-        echo '</script>';
     }
 }
-
+// fires when the add for the 3rd quarter is click
 if (isset($_POST['submit3'])) {
-
+    //get all data from the 3rd quarter form
     $prerogative = $_POST['prerogative3'];
     $summative = $_POST['summative3'];
     $exam = $_POST['exam3'];
     $bonus = $_POST['bonus3'];
     $total = $_POST['total3'];
-
+    // get class member details
     $class_member_id = $_GET["class_member_id"];
     $query =  "SELECT *
         FROM class_member
@@ -161,6 +159,8 @@ if (isset($_POST['submit3'])) {
         WHERE class_member.class_member_id = " . $class_member_id;
     $res = mysqli_query($conn, $query);
     $classMemberDetails = mysqli_fetch_assoc($res);
+
+    // check if there a existing record for this subject and student
     $sql = "SELECT *
     FROM class_grade 
     WHERE student_id =" . $classMemberDetails['id'] . " AND class_id=" . $classMemberDetails['class_id'] . " AND quarter ='3rd Quarter'";
@@ -168,7 +168,7 @@ if (isset($_POST['submit3'])) {
     $res = mysqli_query($conn, $sql);
     $data =  mysqli_fetch_assoc($res);
     $sql = "";
-
+    // if yes; the query will be update. if no insert
     if (mysqli_num_rows($res) > 0) {
         // update
         $sql = "UPDATE class_grade 
@@ -198,25 +198,20 @@ if (isset($_POST['submit3'])) {
         ";
     }
     if (mysqli_query($conn, $sql)) {
-
         header("Refresh:1; url=student_grade.php?class_member_id=" . $_GET["class_member_id"], true, 5);
     } else {
         echo mysqli_error($conn);
-        echo '<script>';
-        echo "alert('Error !');";
-        echo '</script>';
     }
 }
-
-
+// fires when the add for the 4th quarter is click
 if (isset($_POST['submit4'])) {
-
+    //get all data from the 4th quarter form
     $prerogative = $_POST['prerogative4'];
     $summative = $_POST['summative4'];
     $exam = $_POST['exam4'];
     $bonus = $_POST['bonus4'];
     $total = $_POST['total4'];
-
+    // get class member details
     $class_member_id = $_GET["class_member_id"];
     $query =  "SELECT *
         FROM class_member
@@ -225,6 +220,7 @@ if (isset($_POST['submit4'])) {
         WHERE class_member.class_member_id = " . $class_member_id;
     $res = mysqli_query($conn, $query);
     $classMemberDetails = mysqli_fetch_assoc($res);
+    // check if there a existing record for this subject and student
     $sql = "SELECT *
     FROM class_grade 
     WHERE student_id =" . $classMemberDetails['id'] . " AND class_id=" . $classMemberDetails['class_id'] . " AND quarter ='4th Quarter'";
@@ -232,7 +228,7 @@ if (isset($_POST['submit4'])) {
     $res = mysqli_query($conn, $sql);
     $data =  mysqli_fetch_assoc($res);
     $sql = "";
-
+    // if yes; the query will be update. if no insert
     if (mysqli_num_rows($res) > 0) {
         // update
         $sql = "UPDATE class_grade 
@@ -262,13 +258,9 @@ if (isset($_POST['submit4'])) {
         ";
     }
     if (mysqli_query($conn, $sql)) {
-
         header("Refresh:1; url=student_grade.php?class_member_id=" . $_GET["class_member_id"], true, 5);
     } else {
         echo mysqli_error($conn);
-        echo '<script>';
-        echo "alert('Error !');";
-        echo '</script>';
     }
 }
 
@@ -291,8 +283,6 @@ if (isset($_POST['submit4'])) {
 <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
 <script src="https://kit.fontawesome.com/a81368914c.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-
-<!-- <link rel="stylesheet" href="style.css"> -->
 <style>
     * {
         box-sizing: border-box;
@@ -332,6 +322,7 @@ if (isset($_POST['submit4'])) {
     <div class="container-fluid mt-5 px-3 py-3">
         <div class="row">
             <div class="card mb-3 border-0 ml-2  col-md-6">
+                <!-- display student information -->
                 <?php
                 $class_member_id = $_GET["class_member_id"];
                 $query =  "SELECT *
@@ -360,8 +351,8 @@ if (isset($_POST['submit4'])) {
             <div class="col-md-5 col-sm-12 ">
                 <div class="row  d-flex justify-content-around" style="margin-right: -10vw">
                     <div class="card col-md-5  ">
+                        <!-- count the number of present -->
                         <?php
-
                         $query =  "SELECT COUNT(1)
                         FROM class_attendance 
                          WHERE student_id =" . $classMemberDetails['id'] . " AND class_id=" . $classMemberDetails['class_id'] . " AND status ='present'";
@@ -377,16 +368,14 @@ if (isset($_POST['submit4'])) {
                         </div>
                     </div>
                     <div class="card col-md-5  ">
+                        <!-- count the number of absent -->
                         <?php
-
                         $query =  "SELECT COUNT(1)
                         FROM class_attendance 
                         WHERE student_id =" . $classMemberDetails['id'] . " AND class_id=" . $classMemberDetails['class_id'] . " AND status ='absent'";
                         $res = mysqli_query($conn, $query);
                         $row = mysqli_fetch_array($res);
-
                         $absentCount = $row[0];
-
                         ?>
                         <div class="card-body">
                             <h3>Absent <span class="text-danger"><i class="bi bi-x-circle-fill"></i></span></h3>
@@ -405,6 +394,7 @@ if (isset($_POST['submit4'])) {
             <div class="col mb-4">
                 <div class="card" style="background-color: #F8FAFB;">
                     <div class="card-body">
+                        <!-- 1st Quarter form -->
                         <h2 class="card-title">1st Quarter</h2>
                         <?php
 
@@ -437,7 +427,7 @@ if (isset($_POST['submit4'])) {
                             <div class="form-group">
                                 <label for="total1">Total</label>
                                 <input type="text" class="form-control text-center" value="<?php
-
+                                                                                            // if total is empty display the exam+summative +prerogative
                                                                                             if (mysqli_num_rows($res) > 0) {
                                                                                                 if ($firstQuarter['total'] >= 0) {
                                                                                                     echo $firstQuarter['total'];
@@ -466,7 +456,9 @@ if (isset($_POST['submit4'])) {
             <div class="col mb-4">
                 <div class="card" style="background-color: #F8FAFB;">
                     <div class="card-body">
+                        <!-- 2nd Quarter form -->
                         <h2 class="card-title">2nd Quarter</h2>
+                        <!-- get 2nd Quarter data -->
                         <?php
 
                         $query =  "SELECT *
@@ -498,9 +490,7 @@ if (isset($_POST['submit4'])) {
                             <div class="form-group">
                                 <label for="total1">Total</label>
                                 <input type="text" class="form-control text-center" value="<?php
-
-
-
+                                                                                            // if total is empty display the exam+summative +prerogative
                                                                                             if (mysqli_num_rows($res) > 0) {
                                                                                                 if ($secondQuarter['total'] >= 0) {
                                                                                                     echo $secondQuarter['total'];
@@ -516,16 +506,9 @@ if (isset($_POST['submit4'])) {
                                                                                             } else {
                                                                                                 echo 0;
                                                                                             }
-
-
-
-
-
                                                                                             ?>" id="total2" name="total2">
                             </div>
-
                             <button type="submit" id="submit2" name="submit2" class="btn btn-warning text-white"><span><i class="bi bi-plus-circle-fill"></i></span> Add</button>
-
                         </form>
                     </div>
                 </div>
@@ -534,16 +517,15 @@ if (isset($_POST['submit4'])) {
             <div class="col mb-4">
                 <div class="card" style="background-color: #F8FAFB;">
                     <div class="card-body">
+                        <!-- 3rd Quarter form -->
                         <h2 class="card-title">3rd Quarter</h2>
+                        <!-- get 3rd quarter data -->
                         <?php
-
                         $query =  "SELECT *
                         FROM class_grade 
                         WHERE student_id =" . $classMemberDetails['id'] . " AND class_id=" . $classMemberDetails['class_id'] . " AND quarter ='3rd Quarter'";
                         $res = mysqli_query($conn, $query);
-
                         $thirdQuarter =  mysqli_fetch_assoc($res);
-
                         ?>
                         <form method="POST">
                             <div class="form-group">
@@ -566,9 +548,7 @@ if (isset($_POST['submit4'])) {
                             <div class="form-group">
                                 <label for="total3">Total</label>
                                 <input type="text" class="form-control text-center" value="<?php
-
-
-
+                                                                                            // if total is empty display the exam+summative +prerogative
                                                                                             if (mysqli_num_rows($res) > 0) {
                                                                                                 if ($thirdQuarter['total'] >= 0) {
                                                                                                     echo $thirdQuarter['total'];
@@ -587,9 +567,7 @@ if (isset($_POST['submit4'])) {
 
                                                                                             ?>" id="total3" name="total3">
                             </div>
-
                             <button type="submit" id="submit3" name="submit3" class="btn btn-warning text-white"><span><i class="bi bi-plus-circle-fill"></i></span> Add</button>
-
                         </form>
                     </div>
                 </div>
@@ -598,16 +576,15 @@ if (isset($_POST['submit4'])) {
             <div class="col mb-4">
                 <div class="card" style="background-color: #F8FAFB;">
                     <div class="card-body">
+                        <!-- 4th quarter form -->
                         <h2 class="card-title">4th Quarter</h2>
+                        <!-- get 4th quarter data -->
                         <?php
-
                         $query =  "SELECT *
                         FROM class_grade 
                         WHERE student_id =" . $classMemberDetails['id'] . " AND class_id=" . $classMemberDetails['class_id'] . " AND quarter ='4th Quarter'";
                         $res = mysqli_query($conn, $query);
-
                         $fourthQuarter =  mysqli_fetch_assoc($res);
-
                         ?>
                         <form method="POST">
                             <div class="form-group">
@@ -630,9 +607,7 @@ if (isset($_POST['submit4'])) {
                             <div class="form-group">
                                 <label for="total3">Total</label>
                                 <input type="text" class="form-control text-center" value="<?php
-
-
-
+                                                                                            // if total is empty display the exam+summative +prerogative
                                                                                             if (mysqli_num_rows($res) > 0) {
                                                                                                 if ($fourthQuarter['total'] >= 0) {
                                                                                                     echo $fourthQuarter['total'];
@@ -651,39 +626,15 @@ if (isset($_POST['submit4'])) {
 
                                                                                             ?>" id="total4" name="total4">
                             </div>
-
                             <button type="submit" id="submit4" name="submit4" class="btn btn-warning text-white"><span><i class="bi bi-plus-circle-fill"></i></span> Add</button>
-
                         </form>
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
 </body>
 
-
-
 <script>
-    var loadFile = function(event) {
-        var image = document.getElementById('output');
-        image.src = URL.createObjectURL(event.target.files[0]);
-        image.setAttribute("class", "out");
-    };
-
-
-    var loadFile2 = function(event) {
-        var image = document.getElementById('output2');
-        image.src = URL.createObjectURL(event.target.files[0]);
-        image.setAttribute("class", "out");
-    }
-</script>
-
-<script>
+    // for validation
     $(document).ready(function() {
         getData()
         onChange1()
@@ -691,13 +642,14 @@ if (isset($_POST['submit4'])) {
         onChange3()
         onChange4()
     });
-
+    // for 1st quarter on change
     function onChange1() {
+        // geta value from the input field
         let pre = parseFloat($("#prerogative1").val()) || 0;
         let summa = parseFloat($("#summative1").val()) || 0;
         let exam = parseFloat($("#exam1").val()) || 0;
         let bonus = parseFloat($("#bonus1").val()) || 0;
-
+        // if the value exceed to the max value set the value to the max.
         if (pre > 25) {
             pre = 25.00;
         }
@@ -707,12 +659,12 @@ if (isset($_POST['submit4'])) {
         if (exam > 50) {
             exam = 50.00;
         }
-
         let result = pre + summa + exam + bonus;
 
         if (result > 100) {
             result = 100.0
         }
+        // set the value to input
         document.getElementById("prerogative1").value = pre;
         document.getElementById("summative1").value = summa;
         document.getElementById("exam1").value = exam;
@@ -721,6 +673,7 @@ if (isset($_POST['submit4'])) {
 
     }
 
+    // for 2nd quarter
     function onChange2() {
         let pre = parseFloat($("#prerogative2").val()) || 0;
         let summa = parseFloat($("#summative2").val()) || 0;
@@ -750,6 +703,7 @@ if (isset($_POST['submit4'])) {
 
     }
 
+    // for 3rd quarter
     function onChange3() {
         let pre = parseFloat($("#prerogative3").val()) || 0;
         let summa = parseFloat($("#summative3").val()) || 0;
@@ -779,6 +733,7 @@ if (isset($_POST['submit4'])) {
 
     }
 
+    // for 4th quarter
     function onChange4() {
         let pre4 = parseFloat($("#prerogative4").val()) || 0;
         let summa4 = parseFloat($("#summative4").val()) || 0;

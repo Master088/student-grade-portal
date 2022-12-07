@@ -1,15 +1,14 @@
 <?php
 include 'mysql_connect.php';
 
+// chec if class id, absent and date is present in the post request
 if (
     isset($_POST["class_id"]) &&  isset($_POST["absent"]) &&  isset($_POST["date"])
 ) {
-
+    // get value from the post request and set it to variable
     $date = $_POST["date"];
     $absent = json_decode(stripslashes($_POST['absent']));
     $class_id = $_POST["class_id"];
-
-    echo "here" .   $class_id;
 
     // get all student
     $query =  "SELECT *
@@ -21,9 +20,10 @@ if (
 
     $isSuccess = true;
     $sql = "";
-
+    // loop all member of the class
     while ($row = mysqli_fetch_assoc($result)) {
         $id = $row["id"];
+        // if the id of student is in absent array the student is absent otherwise present
         if (val_in_arr($row["id"], $absent)) {
             $sql = "INSERT INTO class_attendance 
             SET 
@@ -49,7 +49,7 @@ if (
             $isSuccess = false;
         }
     }
-
+    // check if theres no error. if no error return success message and status
     if ($isSuccess) {
         $message = "Add success";
         echo json_encode(['status' => 'success', 'message' => $message]);
@@ -58,6 +58,7 @@ if (
         echo json_encode(['status' => 'failed', 'message' => $message]);
     }
 }
+//check if id is in the absent array id
 function val_in_arr($val, $arr)
 {
     foreach ($arr as $arr_val) {
