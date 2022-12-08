@@ -116,9 +116,7 @@ if (isset($_POST['submit'])) {
         font-family: Poppins;
         padding: 0;
         margin: 0;
-
         font-weight: 300;
-        /* background-image: url("img/background.png"); */
         height: 100%;
         font-size: 1em;
         overflow-x: hidden;

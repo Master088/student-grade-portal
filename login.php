@@ -88,6 +88,7 @@ if (isset($_POST['submit'])) {
 
 <head>
     <title>Login</title>
+    <link rel="icon" href ="img/logo.png" class="icon">
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <!-- Google Fonts -->
@@ -132,16 +133,16 @@ if (isset($_POST['submit'])) {
             <div class="container py-5 h-100">
                 <div class="row gx-lg-5 align-items-center mb-5">
                     <div class="col-md-8 col-lg-7 col-xl-6">
-                        <img src="img/undraw_remotely_2j6y.svg" class="img-fluid" alt="Phone image">
+                        <img src="img/undraw_remotely_2j6y.svg" class="img-fluid" alt="login image">
                     </div>
                     <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
                         <div class="card bg-glass">
                             <div class="card-body px-2 py-3 px-md-3">
                                 <form method="POST" class="needs-validation" novalidate>
                                     <div class="d-flex align-items-center mb-3 pb-1">
-                                        <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                                        <img src="img/logo.png" alt="login logo" style="height: 45px;">
                                         <span class="h1 fw-bold mb-0">
-                                            <h5 class="fw-normal mt-1" style="letter-spacing: 1px;">Ocean of Knowledge Ementary School.</h5>
+                                            <h5 class="fw-normal mt-1" style="letter-spacing: 1px;"> Ocean of Knowledge Ementary School.</h5>
                                         </span>
                                     </div>
 

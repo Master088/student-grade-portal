@@ -29,7 +29,8 @@ if (isset($_SESSION['isLogin'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Student Dashboard</title>
+    <link rel="icon" href ="img/logo.png" class="icon">
 </head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -85,16 +86,15 @@ if (isset($_SESSION['isLogin'])) {
                     $studentDetails = mysqli_fetch_assoc($res);
                     ?>
                     <div class="row no-gutters">
-                        <div class="col-md-6 ">
+                        <div class="col-md-4 ">
                             <img src="<?php echo $studentDetails['profile']; ?>" class=" img-fluid border">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <div class="card-body ml-lg-5">
                                 <h1 class="card-title"><?php echo $studentDetails['fullname']; ?></h1>
                                 <p class="card-text">LRN: <?php echo $studentDetails['lrn']; ?></p>
                                 <p class="card-text">Guardian Name: <?php echo $studentDetails['guardian_name']; ?></p>
                                 <p class="card-text">Gender: <?php echo $studentDetails['gender']; ?></p>
-
                             </div>
                         </div>
                     </div>
@@ -133,7 +133,7 @@ if (isset($_SESSION['isLogin'])) {
                                 </div>
                             </div>
                         </div>
-                        <div class="card col-md-5 border-0 noPrint">
+                        <div class="card col-md-5 border-0 noPrint mt-5">
                             <div class="form-group noPrint">
                                 <!-- print the page. no print class exclude this button in print  -->
                                 <button class="btn btn-danger  " onclick="window.print();"><i class="bi bi-file-earmark-arrow-down-fill"></i> Download</button>
@@ -146,7 +146,9 @@ if (isset($_SESSION['isLogin'])) {
         </div>
     </div>
     <div class="container-fluid" id="table">
-        <div id="grade_table" class="text-dark mx-2"></div>
+        <div class="card mb-5">
+            <div id="grade_table" class="text-dark mx-2"></div>
+        </div>
     </div>
 
 
