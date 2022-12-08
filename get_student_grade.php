@@ -33,6 +33,8 @@ if (
         </tr>
     </thead>';
 
+    $finalAverage = 0;
+
     while ($row = mysqli_fetch_assoc($result)) {
 
         // get subject name
@@ -108,9 +110,25 @@ if (
         if (!$final == 0) {
             $final = $final / 4;
         }
+
+        $finalAverage += $final;
+
+
         $value .=  '<td>' .  $final . '</td>';
         $value .= '</tr> ';
     }
+    $finalAverage = $finalAverage / mysqli_num_rows($result);
+    $value .= '<tr> 
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Final Average: 
+    ' .
+        $finalAverage
+        . '</td> </tr>';
+
     $value .= '</table>';
     echo json_encode(['status' => 'success', 'html' => $value]);
 }
